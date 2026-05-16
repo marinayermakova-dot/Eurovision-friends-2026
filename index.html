@@ -681,63 +681,38 @@ function renderPodiums(){
   }).join('');
 }
 
+let wordRotateInterval=null;
 function renderWords(){
-  const c=data[selectedIdx]||null;
   const invalid=/^(—|-|#div\/0!|#n\/a|#ref!|#value!|#error!)$/i;
-
-  if(c&&c.total>0){
-    // Show word(s) for selected country from votesData if available, else from data
-    const countryName=c.country;
-    const label=shortName(countryName);
-    document.getElementById('wordcloud-country').textContent=getFlag(label)+' '+label;
-
-    // Collect words — from votesData if loaded, else just c.word
-    let words=[];
-    if(votesData.length){
-      words=votesData
-        .filter(r=>r.country===countryName&&r.word&&!invalid.test(r.word.toLowerCase().trim()))
-        .map(r=>r.word.toLowerCase().trim());
-    } else if(c.word&&!invalid.test(c.word.toLowerCase().trim())){
-      words=[c.word.toLowerCase().trim()];
-    }
-
-    if(!words.length){
-      document.getElementById('wordcloud').innerHTML='<span style="color:var(--text3);font-size:13px">No reviews yet</span>';
-      return;
-    }
-
-    const freq={};
-    words.forEach(w=>{freq[w]=(freq[w]||0)+1;});
-    const sorted=Object.entries(freq).sort((a,b)=>b[1]-a[1]);
-    const maxF=sorted[0][1];
-    document.getElementById('wordcloud').innerHTML=sorted.map(([word,count],i)=>{
-      const size=Math.round(13+(count/maxF)*15);
-      const col=WORD_COLORS[i%WORD_COLORS.length];
-      return`<span class="word" style="font-size:${size}px;background:${col.bg};color:${col.fg}">${word}</span>`;
-    }).join('');
-
-  } else {
-    // No country selected or unvoted — show all
-    document.getElementById('wordcloud-country').textContent='tap a country to filter';
-    const freq={};
-    data.forEach(d=>{
-      if(d.word){
-        const w=d.word.toLowerCase().trim();
-        if(w&&!invalid.test(w)) freq[w]=(freq[w]||0)+1;
-      }
+  let allWords=[];
+  if(votesData.length){
+    votesData.forEach(r=>{
+      if(r.word){const w=r.word.trim();if(w&&!invalid.test(w.toLowerCase()))allWords.push({word:w,country:r.country});}
     });
-    const sorted=Object.entries(freq).sort((a,b)=>b[1]-a[1]);
-    const maxF=sorted[0]?.[1]||1;
-    if(!sorted.length){
-      document.getElementById('wordcloud').innerHTML='<span style="color:var(--text3);font-size:13px">No reviews yet</span>';
-      return;
-    }
-    document.getElementById('wordcloud').innerHTML=sorted.map(([word,count],i)=>{
-      const size=Math.round(13+(count/maxF)*15);
+  } else {
+    data.forEach(d=>{
+      if(d.word){const w=d.word.trim();if(w&&!invalid.test(w.toLowerCase()))allWords.push({word:w,country:d.country});}
+    });
+  }
+  document.getElementById('wordcloud-country').textContent='rotating reviews';
+  if(!allWords.length){
+    document.getElementById('wordcloud').innerHTML='<span style="color:var(--text3);font-size:13px">No reviews yet</span>';
+    return;
+  }
+  function showRandom(){
+    const shuffled=[...allWords].sort(()=>Math.random()-.5).slice(0,3);
+    document.getElementById('wordcloud').innerHTML=shuffled.map((item,i)=>{
       const col=WORD_COLORS[i%WORD_COLORS.length];
-      return`<span class="word" style="font-size:${size}px;background:${col.bg};color:${col.fg}">${word}</span>`;
+      const name=shortName(item.country);
+      const flag=getFlag(name);
+      return`<span class="word" style="font-size:18px;background:${col.bg};color:${col.fg};display:inline-flex;align-items:center;gap:6px;">
+        <span style="font-size:14px;opacity:0.8">${flag}</span>${item.word}
+      </span>`;
     }).join('');
   }
+  showRandom();
+  if(wordRotateInterval)clearInterval(wordRotateInterval);
+  wordRotateInterval=setInterval(showRandom,3000);
 }
 function switchTab(t){
   podiumTab=t;
