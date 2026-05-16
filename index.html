@@ -178,8 +178,17 @@
   /* Confetti canvas */
   #confetti-canvas{position:fixed;inset:0;pointer-events:none;z-index:999;}
 
-  /* Personal top */
-  .personal-panel{background:var(--bg2);border:1px solid var(--border2);border-radius:16px;padding:16px;margin-bottom:14px;}
+  /* View select dropdown */
+  .view-select { padding:9px 36px 9px 14px; border-radius:10px; font-size:13px; font-weight:600; font-family:'DM Sans',sans-serif; background:var(--bg3); border:1px solid var(--border2); color:var(--text); outline:none; cursor:pointer; appearance:none; -webkit-appearance:none; background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%23aaa' d='M6 8L1 3h10z'/%3E%3C/svg%3E"); background-repeat:no-repeat; background-position:right 12px center; transition:border-color .2s,box-shadow .2s; }
+  .view-select:focus { border-color:var(--teal); box-shadow:0 0 0 2px rgba(0,240,255,0.15); }
+  .view-select option { background:#1a1a35; color:var(--text); }
+  .view-select:disabled { opacity:.4; cursor:default; }
+
+  /* View toggle (kept for backwards compat but hidden) */
+  .view-toggle{display:none;}
+
+  /* Personal panel */
+  .personal-panel{background:var(--bg2);border:1px solid rgba(0,240,255,0.25);border-radius:16px;padding:16px;margin-bottom:18px;}
   .personal-hint{font-size:13px;color:var(--text2);margin-bottom:10px;}
   .personal-input-row{display:flex;gap:8px;margin-bottom:8px;flex-wrap:wrap;}
   .personal-input-row input,.personal-votes-url-row input{flex:1;min-width:0;background:rgba(255,255,255,0.05);border:1px solid var(--border2);border-radius:9px;color:var(--text);font-size:13px;font-family:'DM Mono',monospace;padding:9px 12px;outline:none;transition:border-color .2s;}
@@ -190,7 +199,7 @@
   .personal-votes-url-row{display:flex;gap:8px;margin-bottom:4px;flex-wrap:wrap;}
   .personal-err{font-size:12px;color:#FF8A80;margin-top:6px;font-family:'DM Mono',monospace;}
   .personal-header{margin-bottom:14px;}
-  .personal-name{font-family:'Syne',sans-serif;font-size:22px;font-weight:800;color:var(--teal);}
+  .personal-name{font-family:'Syne',sans-serif;font-size:20px;font-weight:800;color:var(--teal);}
   .personal-sub{font-size:12px;color:var(--text3);font-family:'DM Mono',monospace;margin-top:3px;}
   .personal-row{display:flex;align-items:center;gap:10px;padding:8px 4px;border-bottom:1px solid var(--border);}
   .personal-row:last-child{border-bottom:none;}
@@ -198,7 +207,7 @@
   .personal-country{flex:1;font-size:13px;font-weight:500;color:var(--text);}
   .personal-score{font-size:14px;font-weight:700;font-family:'DM Mono',monospace;color:var(--teal);}
   .personal-word{font-size:11px;padding:2px 8px;border-radius:10px;background:rgba(0,240,255,0.1);color:var(--teal);flex-shrink:0;}
-  .personal-back{text-align:center;margin-top:12px;font-size:12px;color:var(--text3);cursor:pointer;font-family:'DM Mono',monospace;transition:color .15s;}
+  .personal-back{font-size:12px;color:var(--text3);cursor:pointer;font-family:'DM Mono',monospace;transition:color .15s;}
   .personal-back:hover{color:var(--text);}
 
   .status{font-size:11px;color:var(--text3);text-align:center;margin-top:12px;font-family:'DM Mono',monospace;}
@@ -236,6 +245,36 @@
       <div class="pred-bar-wrap" id="pred-bars"></div>
     </div>
   </div>
+  </div>
+
+  <!-- Personal Top (moved up, under info-block) -->
+  <div class="personal-panel" id="personal-panel">
+    <div class="personal-connect" id="personal-connect">
+      <div style="display:flex;align-items:center;gap:10px;margin-bottom:10px;">
+        <span style="font-size:18px">🙋</span>
+        <div>
+          <div style="font-size:14px;font-weight:600;color:var(--text)">My personal top</div>
+          <div style="font-size:12px;color:var(--text3)">Enter your email to see your scores</div>
+        </div>
+      </div>
+      <div class="personal-input-row">
+        <input type="email" id="personal-email" placeholder="your@email.com" autocomplete="email"/>
+        <button onclick="loadPersonal()">Show my top</button>
+      </div>
+      <div class="personal-err" id="personal-err" style="display:none">⚠ No responses found for this email.</div>
+    </div>
+    <div id="personal-result" style="display:none">
+      <div class="personal-header">
+        <div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px;">
+          <div>
+            <div class="personal-name" id="personal-name">—</div>
+            <div class="personal-sub" id="personal-sub">—</div>
+          </div>
+          <div class="personal-back" onclick="resetPersonal()">← Change user</div>
+        </div>
+      </div>
+      <div id="personal-rows"></div>
+    </div>
   </div>
 
   <!-- Leaderboard -->
@@ -277,13 +316,27 @@
     <div class="cats" id="compare-categories"></div>
   </div>
 
+  <!-- Category winners with dropdown -->
   <div class="sec-title">🏅 Category winners</div>
+  <div style="display:flex;align-items:center;gap:10px;margin-bottom:12px;">
+    <select class="view-select" id="awards-view-select" onchange="setAwardsView(this.value)">
+      <option value="all">🌍 Everyone's results</option>
+      <option value="mine">🙋 My results</option>
+    </select>
+  </div>
   <div class="awards" id="awards"></div>
 
+  <!-- Top 3 with dropdown + best/worst tabs -->
   <div class="sec-title">📊 Top 3 per category</div>
-  <div class="tabs">
-    <div class="tab active" id="tab-best" onclick="switchTab('best')">🥇 Best</div>
-    <div class="tab" id="tab-worst" onclick="switchTab('worst')">💀 Worst</div>
+  <div style="display:flex;align-items:center;gap:10px;margin-bottom:12px;flex-wrap:wrap;">
+    <select class="view-select" id="podiums-view-select" onchange="setPodiumsView(this.value)">
+      <option value="all">🌍 Everyone's results</option>
+      <option value="mine">🙋 My results</option>
+    </select>
+    <div class="tabs" style="margin-bottom:0">
+      <div class="tab active" id="tab-best" onclick="switchTab('best')">🥇 Best</div>
+      <div class="tab" id="tab-worst" onclick="switchTab('worst')">💀 Worst</div>
+    </div>
   </div>
   <div class="podiums" id="podiums"></div>
 
@@ -292,36 +345,15 @@
     <div class="wordcloud" id="wordcloud"></div>
   </div>
 
-  <!-- Personal Top -->
-  <div class="sec-title">🙋 My personal top</div>
-  <div class="personal-panel" id="personal-panel">
-    <div class="personal-connect">
-      <div class="personal-hint">Enter your email to see your personal ranking</div>
-      <div class="personal-input-row">
-        <input type="email" id="personal-email" placeholder="your@email.com" autocomplete="email"/>
-        <button onclick="loadPersonal()">Show my top</button>
-      </div>
-      <div class="personal-votes-url-row">
-        <input type="text" id="votes-csv-url" placeholder="Paste Form_Responses CSV link…"/>
-        <button onclick="saveVotesUrl()">Save</button>
-      </div>
-      <div class="personal-err" id="personal-err" style="display:none">⚠ Could not load responses. Check the CSV link.</div>
-    </div>
-    <div id="personal-result" style="display:none">
-      <div class="personal-header">
-        <div class="personal-name" id="personal-name">—</div>
-        <div class="personal-sub" id="personal-sub">—</div>
-      </div>
-      <div id="personal-rows"></div>
-      <div class="personal-back" onclick="resetPersonal()">← Back</div>
-    </div>
-  </div>
-
   <div class="status" id="status">Demo mode · paste a CSV link to see live data</div>
 
   <div class="connect-bar">
-    <input type="text" id="csv-url" placeholder="Paste CSV link from Google Sheets (Publish to web → Leaderboard → CSV)…"/>
+    <input type="text" id="csv-url" placeholder="Leaderboard CSV link…"/>
     <button onclick="connectSheet()">Connect</button>
+  </div>
+  <div class="connect-bar" style="margin-top:8px;">
+    <input type="text" id="votes-csv-url" placeholder="Form_Responses CSV link (admin only)…"/>
+    <button onclick="saveVotesUrl()">Save</button>
   </div>
   <div class="err" id="err-msg">⚠ Could not load data. Check the link — it should end with &amp;output=csv</div>
 
@@ -612,10 +644,13 @@ function renderCompare(){
 }
 
 function renderAwards(){
-  const voted=data.filter(c=>c.total>0);
-  if(!voted.length){document.getElementById('awards').innerHTML='<div style="color:var(--text3);font-size:13px;padding:8px">No votes yet</div>';return;}
+  const src = awardsView==='mine' && personalData.length ? personalData : data.filter(c=>c.total>0);
+  if(!src.length){
+    document.getElementById('awards').innerHTML='<div style="color:var(--text3);font-size:13px;padding:8px">'+(awardsView==='mine'?'No personal data yet':'No votes yet')+'</div>';
+    return;
+  }
   document.getElementById('awards').innerHTML=CATS.map(cat=>{
-    const winner=[...voted].sort((a,b)=>b[cat.key]-a[cat.key])[0];
+    const winner=[...src].sort((a,b)=>b[cat.key]-a[cat.key])[0];
     if(!winner)return'';
     const name=shortName(winner.country);
     return`<div class="award-card" style="border-color:${cat.color}22">
@@ -628,11 +663,11 @@ function renderAwards(){
 }
 
 function renderPodiums(){
-  const voted=data.filter(c=>c.total>0);
+  const src = podiumsView==='mine' && personalData.length ? personalData : data.filter(c=>c.total>0);
   const isBest=podiumTab==='best';
   document.getElementById('podiums').innerHTML=CATS.map(cat=>{
-    if(!voted.length)return`<div class="podium-row"><div class="podium-cat" style="color:${cat.color}">${cat.icon} ${cat.label}</div><div style="color:var(--text3);font-size:12px;padding:4px">No votes yet</div></div>`;
-    const s=[...voted].sort((a,b)=>isBest?b[cat.key]-a[cat.key]:a[cat.key]-b[cat.key]);
+    if(!src.length)return`<div class="podium-row"><div class="podium-cat" style="color:${cat.color}">${cat.icon} ${cat.label}</div><div style="color:var(--text3);font-size:12px;padding:4px">${podiumsView==='mine'?'No personal data yet':'No votes yet'}</div></div>`;
+    const s=[...src].sort((a,b)=>isBest?b[cat.key]-a[cat.key]:a[cat.key]-b[cat.key]);
     const pills=s.slice(0,3).map((c,i)=>{
       const cls=isBest?['pp1','pp2','pp3'][i]:['pw1','pw2','pw3'][i];
       const medal=isBest?['🥇','🥈','🥉'][i]:['💀','😬','😶'][i];
@@ -698,7 +733,27 @@ async function fetchData(){
 }
 
 // ── PERSONAL TOP ─────────────────────────────────
-let votesData=[], votesUrl='';
+let votesData=[], votesUrl='', personalData=[], awardsView='all', podiumsView='all';
+
+function setAwardsView(v){
+  if(v==='mine'&&!personalData.length){ document.getElementById('awards-view-select').value='all'; return; }
+  awardsView=v;
+  renderAwards();
+}
+function setPodiumsView(v){
+  if(v==='mine'&&!personalData.length){ document.getElementById('podiums-view-select').value='all'; return; }
+  podiumsView=v;
+  renderPodiums();
+}
+function updateToggleAvailability(){
+  const hasPersonal=personalData.length>0;
+  ['awards-view-select','podiums-view-select'].forEach(id=>{
+    const el=document.getElementById(id);
+    if(!el) return;
+    el.disabled=!hasPersonal;
+    if(!hasPersonal) el.value='all';
+  });
+}
 
 function saveVotesUrl(){
   const url=document.getElementById('votes-csv-url').value.trim();
@@ -793,6 +848,17 @@ async function loadPersonal(){
     return{...r,personalTotal:total};
   }).sort((a,b)=>b.personalTotal-a.personalTotal);
 
+  // Build personalData (same shape as `data` for awards/podiums)
+  personalData = Object.values(byCountry).map(r=>{
+    const avg=cat=>r[cat.key]/(r.count||1);
+    const total=CATS.reduce((s,cat)=>s+avg(cat),0)/CATS.length;
+    const entry={country:r.country,total,vote:r.vote,word:r.word};
+    CATS.forEach(cat=>{entry[cat.key]=avg(cat);});
+    return entry;
+  }).sort((a,b)=>b.total-a.total);
+
+  updateToggleAvailability();
+
   // Render result
   const nick=nickname(email);
   const rankEmoji=['🥇','🥈','🥉'];
@@ -812,12 +878,20 @@ async function loadPersonal(){
     </div>`;
   }).join('');
 
-  document.getElementById('personal-panel').querySelector('.personal-connect').style.display='none';
+  document.getElementById('personal-connect').style.display='none';
   document.getElementById('personal-result').style.display='block';
 }
 
 function resetPersonal(){
-  document.getElementById('personal-panel').querySelector('.personal-connect').style.display='block';
+  personalData=[];
+  awardsView='all'; podiumsView='all';
+  ['awards-view-select','podiums-view-select'].forEach(id=>{
+    const el=document.getElementById(id);
+    if(el){el.value='all';el.disabled=true;}
+  });
+  updateToggleAvailability();
+  renderAwards(); renderPodiums();
+  document.getElementById('personal-connect').style.display='block';
   document.getElementById('personal-result').style.display='none';
   document.getElementById('personal-err').style.display='none';
 }
