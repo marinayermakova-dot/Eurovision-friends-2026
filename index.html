@@ -7,7 +7,7 @@
 <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Syne:wght@600;700;800&family=DM+Sans:wght@400;500&display=swap" rel="stylesheet"/>
 <style>
   :root {
-    --purple:#A89BFF; --teal:#2DFFC0; --coral:#FF7A5C; --pink:#FF7EB3;
+    --purple:#FF007A; --teal:#00F0FF; --coral:#FF7A5C; --pink:#FF7EB3;
     --blue:#6EC6FF; --amber:#FFD060; --gray:#B0BEC5;
     --gold:#FFD54F; --silver:#CFD8DC; --bronze:#FFAB76;
     --bg:#080814; --bg2:#0f0f22; --bg3:#161630;
@@ -120,7 +120,7 @@
   .country-btn{font-size:12px;font-weight:500;padding:6px 12px;border-radius:20px;border:1px solid var(--border2);background:var(--bg3);color:var(--text2);cursor:pointer;transition:all .15s;white-space:nowrap;}
   .country-btn:hover{border-color:var(--purple);color:var(--text);}
   .country-btn.active{background:rgba(168,155,255,0.2);border-color:var(--purple);color:var(--purple);font-weight:600;}
-  .country-btn.active-b{background:rgba(45,255,192,0.15);border-color:#2DFFC0;color:#2DFFC0;font-weight:600;}
+  .country-btn.active-b{background:rgba(45,255,192,0.15);border-color:#00F0FF;color:#00F0FF;font-weight:600;}
 
   /* Category bars */
   .cats{display:flex;flex-direction:column;gap:12px;}
@@ -236,12 +236,12 @@
   <div class="compare-panel" id="compare-panel" style="display:none">
     <div class="compare-pick-row">
       <div class="compare-col">
-        <div class="compare-col-label" style="color:#A89BFF">Country A</div>
+        <div class="compare-col-label" style="color:#FF007A">Country A</div>
         <div class="country-selector" id="compare-selector-a"></div>
       </div>
       <div class="compare-vs">VS</div>
       <div class="compare-col">
-        <div class="compare-col-label" style="color:#2DFFC0">Country B</div>
+        <div class="compare-col-label" style="color:#00F0FF">Country B</div>
         <div class="country-selector" id="compare-selector-b"></div>
       </div>
     </div>
@@ -270,7 +270,7 @@
 <script>
 const CATS=[
   {key:'vocals',label:'Vocals',icon:'🎤',color:'#C4BEFF'},
-  {key:'outfit',label:'Outfit',icon:'👗',color:'#2DFFC0'},
+  {key:'outfit',label:'Outfit',icon:'👗',color:'#00F0FF'},
   {key:'staging',label:'Staging',icon:'🎭',color:'#FF7A5C'},
   {key:'choreo',label:'Choreo',icon:'💃',color:'#FF7EB3'},
   {key:'eurovision',label:'Eurovision',icon:'⭐',color:'#6EC6FF'},
@@ -278,7 +278,7 @@ const CATS=[
   {key:'confused',label:'Confused?',icon:'😵',color:'#B0BEC5'},
 ];
 const WORD_COLORS=[
-  {bg:'rgba(196,190,255,0.18)',fg:'#C4BEFF'},{bg:'rgba(45,255,192,0.15)',fg:'#2DFFC0'},
+  {bg:'rgba(196,190,255,0.18)',fg:'#C4BEFF'},{bg:'rgba(45,255,192,0.15)',fg:'#00F0FF'},
   {bg:'rgba(255,122,92,0.18)',fg:'#FF9A80'},{bg:'rgba(255,208,96,0.15)',fg:'#FFD060'},
   {bg:'rgba(255,126,179,0.15)',fg:'#FF7EB3'},{bg:'rgba(110,198,255,0.15)',fg:'#6EC6FF'},
   {bg:'rgba(180,255,130,0.12)',fg:'#A5D66B'},{bg:'rgba(176,190,197,0.15)',fg:'#B0BEC5'},
@@ -325,7 +325,12 @@ const DEMO=[
 
 let data=[...DEMO],selectedIdx=0,compareIdxA=0,compareIdxB=1,csvUrl='',countdown=10,podiumTab='best',lbExpanded=false,prevLeader='',scoreHistory={},compareOpen=false;
 
-function shortName(s){const p=s.split('-');const f=(p[0]||s).trim().replace(/^\d+\s*/,'');return f||s.trim();}
+function shortName(s){
+  // Split by dash, take first part, strip leading numbers and quotes
+  const parts=s.split('-');
+  const first=(parts[0]||s).trim().replace(/^[\d\s"']+/,'');
+  return first||s.trim();
+}
 function parsePct(v){if(!v||v==='—')return 0;return parseFloat(v.replace('%',''))||0;}
 function getFlag(n){const l=n.toLowerCase();for(const[k,f]of Object.entries(FLAGS)){if(l.includes(k))return f;}return'🏳️';}
 
@@ -390,7 +395,7 @@ window.addEventListener('resize',resizeCanvas);resizeCanvas();
 function launchConfetti(){
   confettiParticles=[];
   for(let i=0;i<180;i++){
-    const colors=['#A89BFF','#2DFFC0','#FFD060','#FF7EB3','#6EC6FF','#FF7A5C','#FFD54F'];
+    const colors=['#FF007A','#00F0FF','#FFD060','#FF7EB3','#6EC6FF','#FF7A5C','#FFD54F'];
     confettiParticles.push({
       x:Math.random()*canvas.width,y:-10,
       w:6+Math.random()*8,h:10+Math.random()*8,
@@ -529,8 +534,8 @@ function renderCompare(){
   const legend=document.getElementById('compare-legend');
   legend.style.display='flex';
   const nA=shortName(cA.country),nB=shortName(cB.country);
-  legend.innerHTML=`<div class="cleg"><div class="cleg-dot" style="background:#A89BFF"></div>${getFlag(nA)} ${nA} (${cA.total.toFixed(1)})</div>
-    <div class="cleg"><div class="cleg-dot" style="background:#2DFFC0;opacity:.8"></div>${getFlag(nB)} ${nB} (${cB.total.toFixed(1)})</div>`;
+  legend.innerHTML=`<div class="cleg"><div class="cleg-dot" style="background:#FF007A"></div>${getFlag(nA)} ${nA} (${cA.total.toFixed(1)})</div>
+    <div class="cleg"><div class="cleg-dot" style="background:#00F0FF;opacity:.8"></div>${getFlag(nB)} ${nB} (${cB.total.toFixed(1)})</div>`;
 
   // Bars side by side
   document.getElementById('compare-categories').innerHTML=CATS.map(cat=>{
@@ -539,13 +544,13 @@ function renderCompare(){
     return`<div class="cat-row">
       <div class="cat-label" style="color:${cat.color}">${cat.icon} ${cat.label}</div>
       <div class="cat-bar-wrap" style="position:relative;height:14px;background:rgba(255,255,255,0.06);border-radius:4px;overflow:hidden;">
-        <div style="position:absolute;top:0;left:0;height:50%;width:${Math.round(vA/10*100)}%;background:#A89BFF;border-radius:3px;transition:width .8s ease;"></div>
-        <div style="position:absolute;bottom:0;left:0;height:50%;width:${Math.round(vB/10*100)}%;background:#2DFFC0;opacity:.8;border-radius:3px;transition:width .8s ease;"></div>
+        <div style="position:absolute;top:0;left:0;height:50%;width:${Math.round(vA/10*100)}%;background:#FF007A;border-radius:3px;transition:width .8s ease;"></div>
+        <div style="position:absolute;bottom:0;left:0;height:50%;width:${Math.round(vB/10*100)}%;background:#00F0FF;opacity:.8;border-radius:3px;transition:width .8s ease;"></div>
       </div>
       <div class="cat-num" style="font-size:11px;width:52px;text-align:right">
-        <span style="color:#A89BFF;font-weight:${winner==='A'?700:400}">${vA.toFixed(1)}</span>
+        <span style="color:#FF007A;font-weight:${winner==='A'?700:400}">${vA.toFixed(1)}</span>
         <span style="color:var(--text3)"> / </span>
-        <span style="color:#2DFFC0;font-weight:${winner==='B'?700:400}">${vB.toFixed(1)}</span>
+        <span style="color:#00F0FF;font-weight:${winner==='B'?700:400}">${vB.toFixed(1)}</span>
       </div>
     </div>`;
   }).join('');
@@ -587,8 +592,14 @@ function renderPodiums(){
 }
 
 function renderWords(){
+  const invalid=/^(—|-|#div\/0!|#n\/a|#ref!|#value!|#error!)$/i;
   const freq={};
-  data.forEach(c=>{if(c.word){const w=c.word.toLowerCase().trim();freq[w]=(freq[w]||0)+1;}});
+  data.forEach(c=>{
+    if(c.word){
+      const w=c.word.toLowerCase().trim();
+      if(w&&!invalid.test(w)) freq[w]=(freq[w]||0)+1;
+    }
+  });
   const sorted=Object.entries(freq).sort((a,b)=>b[1]-a[1]);
   const maxF=sorted[0]?.[1]||1;
   document.getElementById('wordcloud').innerHTML=sorted.map(([word,count],i)=>{
