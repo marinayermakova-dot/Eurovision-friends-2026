@@ -773,7 +773,9 @@ async function fetchData(){
 }
 
 // ── PERSONAL TOP ─────────────────────────────────
-let votesData=[], votesUrl='', personalData=[], awardsView='all', podiumsView='all';
+const LEADERBOARD_URL='https://docs.google.com/spreadsheets/d/e/2PACX-1vTC5vgdUweVFzETc2D5bm7RURUO_-jVBiOjj97t9zP2DVamyvjCXiWLpT49kY-4Vtm5MMI55HYIGdbK/pub?gid=215318050&single=true&output=csv';
+const VOTES_URL='https://docs.google.com/spreadsheets/d/e/2PACX-1vTC5vgdUweVFzETc2D5bm7RURUO_-jVBiOjj97t9zP2DVamyvjCXiWLpT49kY-4Vtm5MMI55HYIGdbK/pub?gid=436760791&single=true&output=csv';
+let votesData=[], votesUrl=VOTES_URL, personalData=[], awardsView='all', podiumsView='all';
 
 function setAwardsView(v){
   if(v==='mine'&&!personalData.length){ document.getElementById('awards-view-select').value='all'; return; }
@@ -965,6 +967,15 @@ setInterval(()=>{
 updateScoreHistory(data);
 compareIdxA=0;
 compareIdxB=Math.min(1,data.length-1);
+
+// Auto-connect with hardcoded URLs
+csvUrl=LEADERBOARD_URL;
+const csvInput=document.getElementById('csv-url');
+if(csvInput) csvInput.value=LEADERBOARD_URL;
+const votesInput=document.getElementById('votes-csv-url');
+if(votesInput) votesInput.value=VOTES_URL;
+fetchData();
+
 render();
 </script>
 </body>
