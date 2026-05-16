@@ -415,7 +415,7 @@ const DEMO=[
   {country:'United Kingdom',vocals:0,outfit:0,staging:0,choreo:0,eurovision:0,tiktok:0,confused:0,vote:'0%',word:'',total:0},
 ];
 
-let data=[...DEMO],selectedIdx=0,compareIdxA=0,compareIdxB=1,csvUrl='',countdown=10,podiumTab='best',lbExpanded=false,prevLeader='',scoreHistory={},compareOpen=false;
+let data=[...DEMO],selectedIdx=0,compareIdxA=0,compareIdxB=1,csvUrl='',countdown=5,podiumTab='best',lbExpanded=false,prevLeader='',scoreHistory={},compareOpen=false;
 
 function shortName(s){
   // Split by dash, take first part, strip leading numbers and quotes
@@ -758,7 +758,7 @@ async function connectSheet(){
 async function fetchData(){
   if(!csvUrl)return;
   try{
-    const r=await fetch(csvUrl);
+    const r=await fetch(csvUrl+'&t='+Date.now(), {cache:'no-store'});
     if(!r.ok)throw new Error();
     const text=await r.text();
     const parsed=parseCSV(text);
@@ -847,7 +847,7 @@ async function loadPersonal(){
   // Load votes CSV if not loaded yet
   if(!votesData.length&&votesUrl){
     try{
-      const r=await fetch(votesUrl);
+      const r=await fetch(votesUrl+'&t='+Date.now(), {cache:'no-store'});
       if(!r.ok)throw new Error();
       votesData=parseVotesCSV(await r.text());
     }catch(e){
@@ -948,7 +948,7 @@ function resetPersonal(){
 
 setInterval(()=>{
   countdown--;
-  if(countdown<=0){countdown=10;fetchData();}
+  if(countdown<=0){countdown=5;fetchData();}
   document.getElementById('cd').textContent=countdown;
 },1000);
 
