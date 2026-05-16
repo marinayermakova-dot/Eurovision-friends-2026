@@ -100,6 +100,14 @@
   .pred-fill{height:100%;border-radius:3px;background:linear-gradient(90deg,var(--purple),var(--teal));transition:width .8s ease;}
   .pred-pct{font-size:11px;font-family:'DM Mono',monospace;color:var(--purple);width:34px;text-align:right;flex-shrink:0;}
 
+  .compare-select { width:100%; padding:10px 14px; border-radius:10px; font-size:14px; font-weight:500; font-family:'DM Sans',sans-serif; background:var(--bg3); border:1px solid var(--border2); color:var(--text); outline:none; cursor:pointer; appearance:none; -webkit-appearance:none; background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%23888' d='M6 8L1 3h10z'/%3E%3C/svg%3E"); background-repeat:no-repeat; background-position:right 12px center; transition:border-color .2s; }
+  .compare-select:focus { border-color:var(--purple); }
+  .compare-select-a { border-color:rgba(255,0,122,0.4); }
+  .compare-select-a:focus { border-color:#FF007A; }
+  .compare-select-b { border-color:rgba(0,240,255,0.4); }
+  .compare-select-b:focus { border-color:#00F0FF; }
+  .compare-select option { background:#1a1a35; color:var(--text); }
+
   /* Compare toggle row */
   .compare-toggle-row { display:flex; align-items:center; justify-content:space-between; background:var(--bg2); border:1px solid var(--border2); border-radius:14px; padding:13px 18px; margin-bottom:8px; cursor:pointer; font-size:14px; font-weight:600; color:var(--text2); transition:border-color .2s, color .2s; }
   .compare-toggle-row:hover { border-color:var(--purple); color:var(--text); }
@@ -186,10 +194,6 @@
     <div class="live-badge"><div class="dot"></div>LIVE · <span id="cd" style="font-weight:700;margin-left:2px">10</span>s</div>
   </div>
 
-  <div class="connect-bar">
-    <input type="text" id="csv-url" placeholder="Paste CSV link from Google Sheets (Publish to web → Leaderboard → CSV)…"/>
-    <button onclick="connectSheet()">Connect</button>
-  </div>
   <div class="err" id="err-msg">⚠ Could not load data. Check the link — it should end with &amp;output=csv</div>
 
   <div class="info-block">
@@ -224,10 +228,11 @@
       <div class="detail-score" id="detail-score">—</div>
     </div>
     <div class="card-title" style="margin-bottom:12px;">📊 Overview — tap a country in the leaderboard</div>
-    <div class="country-selector" id="country-selector"></div>
     <div class="cats" id="categories"></div>
   </div>
 
+  <div id="compare-selector-a" style="display:none"></div>
+  <div id="compare-selector-b" style="display:none"></div>
   <!-- Compare panel (collapsible) -->
   <div class="compare-toggle-row" onclick="toggleCompare()">
     <span>⚔️ Compare two countries</span>
@@ -237,12 +242,12 @@
     <div class="compare-pick-row">
       <div class="compare-col">
         <div class="compare-col-label" style="color:#FF007A">Country A</div>
-        <div class="country-selector" id="compare-selector-a"></div>
+        <select id="compare-select-a" class="compare-select compare-select-a" onchange="selectCompareA(parseInt(this.value))"></select>
       </div>
       <div class="compare-vs">VS</div>
       <div class="compare-col">
         <div class="compare-col-label" style="color:#00F0FF">Country B</div>
-        <div class="country-selector" id="compare-selector-b"></div>
+        <select id="compare-select-b" class="compare-select compare-select-b" onchange="selectCompareB(parseInt(this.value))"></select>
       </div>
     </div>
     <div class="compare-legend" id="compare-legend" style="display:none"></div>
@@ -265,6 +270,13 @@
   </div>
 
   <div class="status" id="status">Demo mode · paste a CSV link to see live data</div>
+
+  <div class="connect-bar">
+    <input type="text" id="csv-url" placeholder="Paste CSV link from Google Sheets (Publish to web → Leaderboard → CSV)…"/>
+    <button onclick="connectSheet()">Connect</button>
+  </div>
+  <div class="err" id="err-msg">⚠ Could not load data. Check the link — it should end with &amp;output=csv</div>
+
 </div>
 
 <script>
@@ -496,12 +508,6 @@ function renderDetail(){
   document.getElementById('detail-name').textContent=getFlag(name)+' '+name;
   document.getElementById('detail-score').textContent=c.total>0?c.total.toFixed(2):'—';
 
-  // Overview country buttons
-  document.getElementById('country-selector').innerHTML=data.map((d,i)=>{
-    const n=shortName(d.country);
-    return`<div class="country-btn${i===selectedIdx?' active':''}" onclick="selectC(${i})">${getFlag(n)} ${n}</div>`;
-  }).join('');
-
   // Category bars (single)
   document.getElementById('categories').innerHTML=CATS.map(cat=>{
     const val=c[cat.key]||0;
@@ -518,17 +524,18 @@ function renderCompare(){
   const cA=data[compareIdxA]||data[0];
   const cB=data[compareIdxB]||data[Math.min(1,data.length-1)];
 
-  // Selector A
-  document.getElementById('compare-selector-a').innerHTML=data.map((d,i)=>{
+  // Populate dropdowns
+  const options=data.map((d,i)=>{
     const n=shortName(d.country);
-    return`<div class="country-btn${i===compareIdxA?' active':''}" onclick="selectCompareA(${i})">${getFlag(n)} ${n}</div>`;
+    return`<option value="${i}">${getFlag(n)} ${n}</option>`;
   }).join('');
 
-  // Selector B
-  document.getElementById('compare-selector-b').innerHTML=data.map((d,i)=>{
-    const n=shortName(d.country);
-    return`<div class="country-btn${i===compareIdxB?' active-b':''}" onclick="selectCompareB(${i})">${getFlag(n)} ${n}</div>`;
-  }).join('');
+  const selA=document.getElementById('compare-select-a');
+  const selB=document.getElementById('compare-select-b');
+  selA.innerHTML=options;
+  selB.innerHTML=options;
+  selA.value=compareIdxA;
+  selB.value=compareIdxB;
 
   // Legend
   const legend=document.getElementById('compare-legend');
