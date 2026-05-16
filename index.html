@@ -48,14 +48,14 @@
 
   /* Metrics */
   .metrics{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;}
-  .mcard{background:var(--bg2);border:1px solid var(--border);border-radius:12px;padding:12px 14px;}
+  .mcard{background:rgba(168,155,255,0.1);border:1px solid rgba(168,155,255,0.2);border-radius:12px;padding:12px 14px;}
   .mcard-label{font-size:10px;color:rgba(238,240,255,0.7);text-transform:uppercase;letter-spacing:.1em;margin-bottom:5px;font-family:'DM Mono',monospace;}
   .mcard-val{font-size:clamp(16px,4vw,22px);font-weight:700;font-family:'Syne',sans-serif;color:var(--text);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
 
   /* Section */
   .sec-title{font-size:11px;font-weight:600;color:rgba(238,240,255,0.75);text-transform:uppercase;letter-spacing:.1em;margin:26px 0 12px;font-family:'DM Mono',monospace;display:flex;align-items:center;gap:8px;}
   .sec-title::after{content:'';flex:1;height:1px;background:var(--border);}
-  .card{background:var(--bg2);border:1px solid var(--border);border-radius:16px;padding:16px;margin-bottom:12px;}
+  .card{background:rgba(168,155,255,0.08);border:1px solid rgba(168,155,255,0.25);border-radius:16px;padding:16px;margin-bottom:12px;}
   .card-title{font-size:11px;font-weight:600;color:rgba(238,240,255,0.75);text-transform:uppercase;letter-spacing:.1em;margin-bottom:16px;font-family:'DM Mono',monospace;}
 
   @media(max-width:560px){.grid2{grid-template-columns:1fr!important;}}
@@ -109,10 +109,10 @@
   .compare-select option { background:#1a1a35; color:var(--text); }
 
   /* Compare toggle row */
-  .compare-toggle-row { display:flex; align-items:center; justify-content:space-between; background:var(--bg2); border:1px solid var(--border2); border-radius:14px; padding:13px 18px; margin-bottom:8px; cursor:pointer; font-size:14px; font-weight:600; color:var(--text2); transition:border-color .2s, color .2s; }
-  .compare-toggle-row:hover { border-color:var(--purple); color:var(--text); }
+  .compare-toggle-row { display:flex; align-items:center; justify-content:space-between; background:rgba(168,155,255,0.08); border:1px solid rgba(168,155,255,0.25); border-radius:14px; padding:13px 18px; margin-bottom:8px; cursor:pointer; font-size:14px; font-weight:600; color:var(--text2); transition:border-color .2s, color .2s; }
+  .compare-toggle-row:hover { border-color:rgba(168,155,255,0.5); color:var(--text); }
   #compare-chevron { font-size:11px; color:var(--text3); transition:transform .2s; }
-  .compare-panel { background:var(--bg2); border:1px solid var(--border2); border-radius:14px; padding:16px; margin-bottom:12px; }
+  .compare-panel { background:rgba(168,155,255,0.08); border:1px solid rgba(168,155,255,0.25); border-radius:14px; padding:16px; margin-bottom:12px; }
   .compare-pick-row { display:grid; grid-template-columns:1fr auto 1fr; gap:12px; align-items:start; margin-bottom:16px; }
   @media(max-width:500px){ .compare-pick-row { grid-template-columns:1fr; } .compare-vs { display:none; } }
   .compare-col { display:flex; flex-direction:column; gap:8px; }
@@ -120,7 +120,7 @@
   .compare-vs { display:flex; align-items:center; justify-content:center; font-family:'Syne',sans-serif; font-weight:800; font-size:16px; color:var(--text3); padding-top:24px; }
 
   /* Detail panel */
-  .detail-panel{background:var(--bg2);border:1px solid var(--border2);border-radius:16px;padding:16px;margin-bottom:12px;}
+  .detail-panel{background:rgba(168,155,255,0.08);border:1px solid rgba(168,155,255,0.25);border-radius:16px;padding:16px;margin-bottom:12px;}
   .detail-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:12px;flex-wrap:wrap;gap:8px;}
   .detail-name{font-family:'Syne',sans-serif;font-size:18px;font-weight:700;color:var(--text);}
   .detail-score{font-family:'Syne',sans-serif;font-size:28px;font-weight:800;color:var(--purple);}
@@ -147,8 +147,8 @@
   /* Awards */
   .awards{display:grid;grid-template-columns:repeat(auto-fill,minmax(100px,1fr));gap:8px;}
   @media(max-width:400px){.awards{grid-template-columns:repeat(2,1fr);}}
-  .award-card{background:var(--bg3);border:1px solid var(--border);border-radius:14px;padding:14px 10px;text-align:center;transition:transform .2s,border-color .2s,box-shadow .2s;}
-  .award-card:hover{transform:translateY(-4px);box-shadow:0 8px 24px rgba(168,155,255,0.15);}
+  .award-card{background:rgba(168,155,255,0.1);border:1px solid rgba(168,155,255,0.2);border-radius:14px;padding:14px 10px;text-align:center;transition:transform .2s,border-color .2s,box-shadow .2s;}
+  .award-card:hover{transform:translateY(-4px);box-shadow:0 8px 24px rgba(168,155,255,0.2);}
   .award-icon{font-size:22px;margin-bottom:6px;}
   .award-cat{font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:.08em;margin-bottom:6px;font-family:'DM Mono',monospace;}
   .award-winner{font-size:12px;font-weight:500;color:var(--text);margin-bottom:5px;line-height:1.3;min-height:28px;display:flex;align-items:center;justify-content:center;}
@@ -156,7 +156,7 @@
 
   /* Podiums */
   .podiums{display:flex;flex-direction:column;gap:7px;}
-  .podium-row{background:var(--bg3);border:1px solid var(--border);border-radius:12px;padding:11px 14px;display:flex;align-items:flex-start;gap:12px;flex-wrap:wrap;}
+  .podium-row{background:rgba(168,155,255,0.08);border:1px solid rgba(168,155,255,0.18);border-radius:12px;padding:11px 14px;display:flex;align-items:flex-start;gap:12px;flex-wrap:wrap;}
   .podium-cat{font-size:12px;font-weight:600;width:110px;flex-shrink:0;padding-top:3px;display:flex;align-items:center;gap:5px;}
   .podium-winners{display:flex;gap:6px;flex:1;flex-wrap:wrap;}
   .podium-pill{font-size:12px;font-weight:500;padding:4px 11px;border-radius:20px;}
@@ -167,8 +167,8 @@
   .pw2{background:rgba(255,120,80,0.1);color:#FFAB90;}
   .pw3{background:rgba(200,200,200,0.08);color:var(--text3);}
   .tabs{display:flex;gap:6px;margin-bottom:12px;}
-  .tab{font-size:12px;font-weight:600;padding:6px 16px;border-radius:20px;border:1px solid var(--border2);background:var(--bg3);color:var(--text2);cursor:pointer;transition:all .15s;font-family:'DM Mono',monospace;}
-  .tab.active{background:rgba(168,155,255,0.18);border-color:var(--purple);color:var(--purple);}
+  .tab{font-size:12px;font-weight:600;padding:6px 16px;border-radius:20px;border:1px solid rgba(168,155,255,0.25);background:rgba(168,155,255,0.08);color:var(--text2);cursor:pointer;transition:all .15s;font-family:'DM Mono',monospace;}
+  .tab.active{background:rgba(168,155,255,0.22);border-color:var(--purple);color:var(--purple);}
 
   /* Word cloud */
   .wordcloud{display:flex;flex-wrap:wrap;gap:8px;align-items:center;min-height:52px;}
@@ -188,7 +188,7 @@
   .view-toggle{display:none;}
 
   /* Personal panel */
-  .personal-panel{background:var(--bg2);border:1px solid rgba(0,240,255,0.25);border-radius:16px;padding:16px;margin-bottom:18px;}
+  .personal-panel{background:rgba(0,240,255,0.06);border:1px solid rgba(0,240,255,0.2);border-radius:16px;padding:16px;margin-bottom:18px;}
   .personal-hint{font-size:13px;color:var(--text2);margin-bottom:10px;}
   .personal-input-row{display:flex;gap:8px;margin-bottom:8px;flex-wrap:wrap;}
   .personal-input-row input,.personal-votes-url-row input{flex:1;min-width:0;background:rgba(255,255,255,0.05);border:1px solid var(--border2);border-radius:9px;color:var(--text);font-size:13px;font-family:'DM Mono',monospace;padding:9px 12px;outline:none;transition:border-color .2s;}
@@ -245,6 +245,12 @@
       <div class="pred-bar-wrap" id="pred-bars"></div>
     </div>
   </div>
+
+  <div style="margin-top:12px;">
+    <div class="info-block-label" style="margin-bottom:8px;">💬 One word review — <span id="wordcloud-country" style="color:var(--text2)">tap a country to filter</span></div>
+    <div class="wordcloud" id="wordcloud"></div>
+  </div>
+
   </div>
 
   <!-- Personal Top (moved up, under info-block) -->
@@ -293,29 +299,6 @@
     <div class="cats" id="categories"></div>
   </div>
 
-  <div id="compare-selector-a" style="display:none"></div>
-  <div id="compare-selector-b" style="display:none"></div>
-  <!-- Compare panel (collapsible) -->
-  <div class="compare-toggle-row" onclick="toggleCompare()">
-    <span>⚔️ Compare two countries</span>
-    <span id="compare-chevron">▼</span>
-  </div>
-  <div class="compare-panel" id="compare-panel" style="display:none">
-    <div class="compare-pick-row">
-      <div class="compare-col">
-        <div class="compare-col-label" style="color:#FF007A">Country A</div>
-        <select id="compare-select-a" class="compare-select compare-select-a" onchange="selectCompareA(parseInt(this.value))"></select>
-      </div>
-      <div class="compare-vs">VS</div>
-      <div class="compare-col">
-        <div class="compare-col-label" style="color:#00F0FF">Country B</div>
-        <select id="compare-select-b" class="compare-select compare-select-b" onchange="selectCompareB(parseInt(this.value))"></select>
-      </div>
-    </div>
-    <div class="compare-legend" id="compare-legend" style="display:none"></div>
-    <div class="cats" id="compare-categories"></div>
-  </div>
-
   <!-- Category winners with dropdown -->
   <div class="sec-title">🏅 Category winners</div>
   <div style="display:flex;align-items:center;gap:10px;margin-bottom:12px;">
@@ -340,12 +323,29 @@
   </div>
   <div class="podiums" id="podiums"></div>
 
-  <div class="card" style="margin-top:14px;">
-    <div class="card-title">💬 One word review</div>
-    <div class="wordcloud" id="wordcloud"></div>
-  </div>
-
   <div class="status" id="status">Demo mode · paste a CSV link to see live data</div>
+
+  <div id="compare-selector-a" style="display:none"></div>
+  <div id="compare-selector-b" style="display:none"></div>
+  <div class="compare-toggle-row" onclick="toggleCompare()">
+    <span>⚔️ Compare two countries</span>
+    <span id="compare-chevron">▼</span>
+  </div>
+  <div class="compare-panel" id="compare-panel" style="display:none">
+    <div class="compare-pick-row">
+      <div class="compare-col">
+        <div class="compare-col-label" style="color:#FF007A">Country A</div>
+        <select id="compare-select-a" class="compare-select compare-select-a" onchange="selectCompareA(parseInt(this.value))"></select>
+      </div>
+      <div class="compare-vs">VS</div>
+      <div class="compare-col">
+        <div class="compare-col-label" style="color:#00F0FF">Country B</div>
+        <select id="compare-select-b" class="compare-select compare-select-b" onchange="selectCompareB(parseInt(this.value))"></select>
+      </div>
+    </div>
+    <div class="compare-legend" id="compare-legend" style="display:none"></div>
+    <div class="cats" id="compare-categories"></div>
+  </div>
 
   <div class="connect-bar">
     <input type="text" id="csv-url" placeholder="Leaderboard CSV link…"/>
@@ -682,23 +682,63 @@ function renderPodiums(){
 }
 
 function renderWords(){
+  const c=data[selectedIdx]||null;
   const invalid=/^(—|-|#div\/0!|#n\/a|#ref!|#value!|#error!)$/i;
-  const freq={};
-  data.forEach(c=>{
-    if(c.word){
-      const w=c.word.toLowerCase().trim();
-      if(w&&!invalid.test(w)) freq[w]=(freq[w]||0)+1;
-    }
-  });
-  const sorted=Object.entries(freq).sort((a,b)=>b[1]-a[1]);
-  const maxF=sorted[0]?.[1]||1;
-  document.getElementById('wordcloud').innerHTML=sorted.map(([word,count],i)=>{
-    const size=Math.round(13+(count/maxF)*15);
-    const col=WORD_COLORS[i%WORD_COLORS.length];
-    return`<span class="word" style="font-size:${size}px;background:${col.bg};color:${col.fg}">${word}</span>`;
-  }).join('');
-}
 
+  if(c&&c.total>0){
+    // Show word(s) for selected country from votesData if available, else from data
+    const countryName=c.country;
+    const label=shortName(countryName);
+    document.getElementById('wordcloud-country').textContent=getFlag(label)+' '+label;
+
+    // Collect words — from votesData if loaded, else just c.word
+    let words=[];
+    if(votesData.length){
+      words=votesData
+        .filter(r=>r.country===countryName&&r.word&&!invalid.test(r.word.toLowerCase().trim()))
+        .map(r=>r.word.toLowerCase().trim());
+    } else if(c.word&&!invalid.test(c.word.toLowerCase().trim())){
+      words=[c.word.toLowerCase().trim()];
+    }
+
+    if(!words.length){
+      document.getElementById('wordcloud').innerHTML='<span style="color:var(--text3);font-size:13px">No reviews yet</span>';
+      return;
+    }
+
+    const freq={};
+    words.forEach(w=>{freq[w]=(freq[w]||0)+1;});
+    const sorted=Object.entries(freq).sort((a,b)=>b[1]-a[1]);
+    const maxF=sorted[0][1];
+    document.getElementById('wordcloud').innerHTML=sorted.map(([word,count],i)=>{
+      const size=Math.round(13+(count/maxF)*15);
+      const col=WORD_COLORS[i%WORD_COLORS.length];
+      return`<span class="word" style="font-size:${size}px;background:${col.bg};color:${col.fg}">${word}</span>`;
+    }).join('');
+
+  } else {
+    // No country selected or unvoted — show all
+    document.getElementById('wordcloud-country').textContent='tap a country to filter';
+    const freq={};
+    data.forEach(d=>{
+      if(d.word){
+        const w=d.word.toLowerCase().trim();
+        if(w&&!invalid.test(w)) freq[w]=(freq[w]||0)+1;
+      }
+    });
+    const sorted=Object.entries(freq).sort((a,b)=>b[1]-a[1]);
+    const maxF=sorted[0]?.[1]||1;
+    if(!sorted.length){
+      document.getElementById('wordcloud').innerHTML='<span style="color:var(--text3);font-size:13px">No reviews yet</span>';
+      return;
+    }
+    document.getElementById('wordcloud').innerHTML=sorted.map(([word,count],i)=>{
+      const size=Math.round(13+(count/maxF)*15);
+      const col=WORD_COLORS[i%WORD_COLORS.length];
+      return`<span class="word" style="font-size:${size}px;background:${col.bg};color:${col.fg}">${word}</span>`;
+    }).join('');
+  }
+}
 function switchTab(t){
   podiumTab=t;
   document.getElementById('tab-best').classList.toggle('active',t==='best');
