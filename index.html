@@ -178,6 +178,29 @@
   /* Confetti canvas */
   #confetti-canvas{position:fixed;inset:0;pointer-events:none;z-index:999;}
 
+  /* Personal top */
+  .personal-panel{background:var(--bg2);border:1px solid var(--border2);border-radius:16px;padding:16px;margin-bottom:14px;}
+  .personal-hint{font-size:13px;color:var(--text2);margin-bottom:10px;}
+  .personal-input-row{display:flex;gap:8px;margin-bottom:8px;flex-wrap:wrap;}
+  .personal-input-row input,.personal-votes-url-row input{flex:1;min-width:0;background:rgba(255,255,255,0.05);border:1px solid var(--border2);border-radius:9px;color:var(--text);font-size:13px;font-family:'DM Mono',monospace;padding:9px 12px;outline:none;transition:border-color .2s;}
+  .personal-input-row input:focus,.personal-votes-url-row input:focus{border-color:var(--teal);}
+  .personal-input-row input::placeholder,.personal-votes-url-row input::placeholder{color:var(--text3);font-size:12px;}
+  .personal-input-row button,.personal-votes-url-row button{background:var(--teal);border:none;border-radius:9px;color:#030810;font-size:13px;font-weight:700;padding:9px 18px;cursor:pointer;transition:opacity .2s;white-space:nowrap;flex-shrink:0;}
+  .personal-input-row button:hover,.personal-votes-url-row button:hover{opacity:.85;}
+  .personal-votes-url-row{display:flex;gap:8px;margin-bottom:4px;flex-wrap:wrap;}
+  .personal-err{font-size:12px;color:#FF8A80;margin-top:6px;font-family:'DM Mono',monospace;}
+  .personal-header{margin-bottom:14px;}
+  .personal-name{font-family:'Syne',sans-serif;font-size:22px;font-weight:800;color:var(--teal);}
+  .personal-sub{font-size:12px;color:var(--text3);font-family:'DM Mono',monospace;margin-top:3px;}
+  .personal-row{display:flex;align-items:center;gap:10px;padding:8px 4px;border-bottom:1px solid var(--border);}
+  .personal-row:last-child{border-bottom:none;}
+  .personal-rank{font-family:'Syne',sans-serif;font-size:14px;font-weight:700;width:24px;text-align:center;flex-shrink:0;}
+  .personal-country{flex:1;font-size:13px;font-weight:500;color:var(--text);}
+  .personal-score{font-size:14px;font-weight:700;font-family:'DM Mono',monospace;color:var(--teal);}
+  .personal-word{font-size:11px;padding:2px 8px;border-radius:10px;background:rgba(0,240,255,0.1);color:var(--teal);flex-shrink:0;}
+  .personal-back{text-align:center;margin-top:12px;font-size:12px;color:var(--text3);cursor:pointer;font-family:'DM Mono',monospace;transition:color .15s;}
+  .personal-back:hover{color:var(--text);}
+
   .status{font-size:11px;color:var(--text3);text-align:center;margin-top:12px;font-family:'DM Mono',monospace;}
 </style>
 </head>
@@ -267,6 +290,31 @@
   <div class="card" style="margin-top:14px;">
     <div class="card-title">💬 One word review</div>
     <div class="wordcloud" id="wordcloud"></div>
+  </div>
+
+  <!-- Personal Top -->
+  <div class="sec-title">🙋 My personal top</div>
+  <div class="personal-panel" id="personal-panel">
+    <div class="personal-connect">
+      <div class="personal-hint">Enter your email to see your personal ranking</div>
+      <div class="personal-input-row">
+        <input type="email" id="personal-email" placeholder="your@email.com" autocomplete="email"/>
+        <button onclick="loadPersonal()">Show my top</button>
+      </div>
+      <div class="personal-votes-url-row">
+        <input type="text" id="votes-csv-url" placeholder="Paste Form_Responses CSV link…"/>
+        <button onclick="saveVotesUrl()">Save</button>
+      </div>
+      <div class="personal-err" id="personal-err" style="display:none">⚠ Could not load responses. Check the CSV link.</div>
+    </div>
+    <div id="personal-result" style="display:none">
+      <div class="personal-header">
+        <div class="personal-name" id="personal-name">—</div>
+        <div class="personal-sub" id="personal-sub">—</div>
+      </div>
+      <div id="personal-rows"></div>
+      <div class="personal-back" onclick="resetPersonal()">← Back</div>
+    </div>
   </div>
 
   <div class="status" id="status">Demo mode · paste a CSV link to see live data</div>
@@ -648,6 +696,141 @@ async function fetchData(){
     }
   }catch(e){document.getElementById('err-msg').style.display='block';}
 }
+
+// ── PERSONAL TOP ─────────────────────────────────
+let votesData=[], votesUrl='';
+
+function saveVotesUrl(){
+  const url=document.getElementById('votes-csv-url').value.trim();
+  if(!url)return;
+  votesUrl=url;
+  localStorage.setItem('eurovision_votes_url', url);
+  document.getElementById('votes-csv-url').style.borderColor='var(--teal)';
+  setTimeout(()=>document.getElementById('votes-csv-url').style.borderColor='',1500);
+}
+
+function parseVotesCSV(text){
+  const lines=text.trim().split('\n').filter(l=>l.trim());
+  if(lines.length<2)return[];
+  return lines.slice(1).map(line=>{
+    // Handle quoted CSV fields
+    const cols=[];
+    let cur='', inQ=false;
+    for(let i=0;i<line.length;i++){
+      if(line[i]==='"'){inQ=!inQ;}
+      else if(line[i]===','&&!inQ){cols.push(cur.trim());cur='';}
+      else{cur+=line[i];}
+    }
+    cols.push(cur.trim());
+    const email=(cols[12]||'').trim().toLowerCase();
+    if(!email)return null;
+    return{
+      country:(cols[1]||'').trim(),
+      vocals: parseFloat(cols[2])||0,
+      outfit: parseFloat(cols[3])||0,
+      staging:parseFloat(cols[4])||0,
+      choreo: parseFloat(cols[5])||0,
+      eurovision:parseFloat(cols[6])||0,
+      tiktok: parseFloat(cols[7])||0,
+      confused:parseFloat(cols[8])||0,
+      vote:   (cols[9]||'').trim(),
+      word:   (cols[10]||'').trim(),
+      email:  email,
+    };
+  }).filter(Boolean).filter(r=>r.country&&r.email);
+}
+
+function nickname(email){
+  const local=email.split('@')[0]||email;
+  return local.slice(0,5).toLowerCase();
+}
+
+async function loadPersonal(){
+  const email=document.getElementById('personal-email').value.trim().toLowerCase();
+  if(!email){return;}
+
+  // Load votes CSV if not loaded yet
+  if(!votesData.length&&votesUrl){
+    try{
+      const r=await fetch(votesUrl);
+      if(!r.ok)throw new Error();
+      votesData=parseVotesCSV(await r.text());
+    }catch(e){
+      document.getElementById('personal-err').style.display='block';
+      return;
+    }
+  }
+
+  if(!votesData.length){
+    document.getElementById('personal-err').style.display='block';
+    return;
+  }
+
+  // Filter by email
+  const myRows=votesData.filter(r=>r.email===email);
+  if(!myRows.length){
+    document.getElementById('personal-err').style.display='block';
+    document.getElementById('personal-err').textContent='⚠ No responses found for this email.';
+    return;
+  }
+
+  document.getElementById('personal-err').style.display='none';
+
+  // Calc personal score per country (average of all numeric categories)
+  const byCountry={};
+  myRows.forEach(r=>{
+    const key=r.country;
+    if(!byCountry[key])byCountry[key]={...r,count:1};
+    else{
+      CATS.forEach(cat=>{byCountry[key][cat.key]=(byCountry[key][cat.key]||0)+r[cat.key];});
+      byCountry[key].count++;
+    }
+  });
+
+  const personal=Object.values(byCountry).map(r=>{
+    const avg=cat=>r[cat.key]/(r.count||1);
+    const total=CATS.reduce((s,cat)=>s+avg(cat),0)/CATS.length;
+    return{...r,personalTotal:total};
+  }).sort((a,b)=>b.personalTotal-a.personalTotal);
+
+  // Render result
+  const nick=nickname(email);
+  const rankEmoji=['🥇','🥈','🥉'];
+  document.getElementById('personal-name').textContent=`${nick}'s top`;
+  document.getElementById('personal-sub').textContent=`${myRows.length} votes cast · ${personal.length} countries rated`;
+  document.getElementById('personal-rows').innerHTML=personal.map((c,i)=>{
+    const name=shortName(c.country);
+    const flag=getFlag(name);
+    const rankCls=i===0?'r1':i===1?'r2':i===2?'r3':'';
+    const word=c.word&&!['—','-',''].includes(c.word.toLowerCase())?`<span class="personal-word">${c.word}</span>`:'';
+    return`<div class="personal-row">
+      <div class="personal-rank ${rankCls}">${rankEmoji[i]||i+1}</div>
+      <div class="flag-cell">${flag}</div>
+      <div class="personal-country">${name}</div>
+      ${word}
+      <div class="personal-score">${c.personalTotal.toFixed(1)}</div>
+    </div>`;
+  }).join('');
+
+  document.getElementById('personal-panel').querySelector('.personal-connect').style.display='none';
+  document.getElementById('personal-result').style.display='block';
+}
+
+function resetPersonal(){
+  document.getElementById('personal-panel').querySelector('.personal-connect').style.display='block';
+  document.getElementById('personal-result').style.display='none';
+  document.getElementById('personal-err').style.display='none';
+}
+
+// Restore saved votes URL
+(function(){
+  const saved=localStorage.getItem('eurovision_votes_url');
+  if(saved){
+    votesUrl=saved;
+    const el=document.getElementById('votes-csv-url');
+    if(el)el.value=saved;
+  }
+})();
 
 setInterval(()=>{
   countdown--;
