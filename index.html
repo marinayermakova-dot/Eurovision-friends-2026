@@ -7,177 +7,174 @@
 <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Syne:wght@600;700;800&family=DM+Sans:wght@400;500&display=swap" rel="stylesheet"/>
 <style>
   :root {
-    --purple: #A89BFF;
-    --teal:   #2DFFC0;
-    --coral:  #FF7A5C;
-    --pink:   #FF7EB3;
-    --blue:   #6EC6FF;
-    --amber:  #FFD060;
-    --gray:   #B0BEC5;
-    --gold:   #FFD54F;
-    --silver: #CFD8DC;
-    --bronze: #FFAB76;
-    --bg:  #080814;
-    --bg2: #0f0f22;
-    --bg3: #161630;
-    --border:  rgba(255,255,255,0.07);
-    --border2: rgba(255,255,255,0.13);
-    --text:  #EEF0FF;
-    --text2: rgba(238,240,255,0.6);
-    --text3: rgba(238,240,255,0.3);
+    --purple:#A89BFF; --teal:#2DFFC0; --coral:#FF7A5C; --pink:#FF7EB3;
+    --blue:#6EC6FF; --amber:#FFD060; --gray:#B0BEC5;
+    --gold:#FFD54F; --silver:#CFD8DC; --bronze:#FFAB76;
+    --bg:#080814; --bg2:#0f0f22; --bg3:#161630;
+    --border:rgba(255,255,255,0.07); --border2:rgba(255,255,255,0.13);
+    --text:#EEF0FF; --text2:rgba(238,240,255,0.6); --text3:rgba(238,240,255,0.3);
   }
-  * { box-sizing: border-box; margin: 0; padding: 0; }
-  body {
-    font-family: 'DM Sans', sans-serif;
-    background: var(--bg);
-    color: var(--text);
-    min-height: 100vh;
-    padding: 20px 16px 60px;
-    overflow-x: hidden;
-  }
-  body::before {
-    content:''; position:fixed; top:-200px; left:50%; transform:translateX(-50%);
-    width:700px; height:700px;
-    background:radial-gradient(circle, rgba(168,155,255,0.1) 0%, transparent 70%);
-    pointer-events:none; z-index:0;
-  }
-  .container { max-width:800px; margin:0 auto; position:relative; z-index:1; }
+  *{box-sizing:border-box;margin:0;padding:0;}
+  body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);min-height:100vh;padding:20px 16px 60px;overflow-x:hidden;}
+  body::before{content:'';position:fixed;top:-200px;left:50%;transform:translateX(-50%);width:700px;height:700px;background:radial-gradient(circle,rgba(168,155,255,0.1) 0%,transparent 70%);pointer-events:none;z-index:0;}
+  .container{max-width:800px;margin:0 auto;position:relative;z-index:1;}
 
-  /* Stars */
-  .stars { position:fixed; inset:0; pointer-events:none; z-index:0; }
-  .star { position:absolute; border-radius:50%; background:white; animation:twinkle var(--d) ease-in-out infinite var(--delay); }
-  @keyframes twinkle { 0%,100%{opacity:.07} 50%{opacity:.5} }
+  .stars{position:fixed;inset:0;pointer-events:none;z-index:0;}
+  .star{position:absolute;border-radius:50%;background:white;animation:twinkle var(--d) ease-in-out infinite var(--delay);}
+  @keyframes twinkle{0%,100%{opacity:.07}50%{opacity:.5}}
 
   /* Header */
-  .header { display:flex; align-items:flex-start; justify-content:space-between; margin-bottom:22px; gap:12px; flex-wrap:wrap; }
-  .header-title {
-    font-family:'Syne',sans-serif; font-size:clamp(24px,6vw,36px); font-weight:800;
-    letter-spacing:-.03em; line-height:1;
-    background:linear-gradient(135deg,#fff 0%,var(--purple) 100%);
-    -webkit-background-clip:text; -webkit-text-fill-color:transparent; background-clip:text;
-  }
-  .header-sub { font-size:12px; color:var(--text3); margin-top:5px; font-family:'DM Mono',monospace; letter-spacing:.05em; }
-  .live-badge {
-    display:flex; align-items:center; gap:7px;
-    background:rgba(45,255,192,0.08); border:1px solid rgba(45,255,192,0.2);
-    border-radius:20px; padding:7px 14px;
-    font-size:12px; color:var(--teal); font-family:'DM Mono',monospace; white-space:nowrap;
-  }
-  .dot { width:6px; height:6px; border-radius:50%; background:var(--teal); animation:blink 1.4s ease-in-out infinite; flex-shrink:0; }
-  @keyframes blink { 0%,100%{opacity:1} 50%{opacity:.2} }
+  .header{display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:22px;gap:12px;flex-wrap:wrap;}
+  .header-title{font-family:'Syne',sans-serif;font-size:clamp(24px,6vw,36px);font-weight:800;letter-spacing:-.03em;line-height:1;background:linear-gradient(135deg,#fff 0%,var(--purple) 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;}
+  .header-sub{font-size:12px;color:var(--text3);margin-top:5px;font-family:'DM Mono',monospace;letter-spacing:.05em;}
+  .live-badge{display:flex;align-items:center;gap:7px;background:rgba(45,255,192,0.08);border:1px solid rgba(45,255,192,0.2);border-radius:20px;padding:7px 14px;font-size:12px;color:var(--teal);font-family:'DM Mono',monospace;white-space:nowrap;}
+  .dot{width:6px;height:6px;border-radius:50%;background:var(--teal);animation:blink 1.4s ease-in-out infinite;flex-shrink:0;}
+  @keyframes blink{0%,100%{opacity:1}50%{opacity:.2}}
 
   /* Connect */
-  .connect-bar { display:flex; gap:8px; margin-bottom:18px; background:var(--bg2); border:1px solid var(--border2); border-radius:14px; padding:12px; flex-wrap:wrap; }
-  .connect-bar input { flex:1; min-width:0; background:rgba(255,255,255,0.05); border:1px solid var(--border); border-radius:9px; color:var(--text); font-size:13px; font-family:'DM Mono',monospace; padding:9px 12px; outline:none; transition:border-color .2s; }
-  .connect-bar input:focus { border-color:var(--purple); }
-  .connect-bar input::placeholder { color:var(--text3); font-size:12px; }
-  .connect-bar button { background:var(--purple); border:none; border-radius:9px; color:#0a0820; font-size:13px; font-weight:700; font-family:'DM Sans',sans-serif; padding:9px 20px; cursor:pointer; transition:opacity .2s,transform .1s; white-space:nowrap; flex-shrink:0; }
-  .connect-bar button:hover { opacity:.85; }
-  .connect-bar button:active { transform:scale(.97); }
-  .err { font-size:12px; color:#FF8A80; margin-bottom:12px; font-family:'DM Mono',monospace; display:none; padding:0 4px; }
+  .connect-bar{display:flex;gap:8px;margin-bottom:18px;background:var(--bg2);border:1px solid var(--border2);border-radius:14px;padding:12px;flex-wrap:wrap;}
+  .connect-bar input{flex:1;min-width:0;background:rgba(255,255,255,0.05);border:1px solid var(--border);border-radius:9px;color:var(--text);font-size:13px;font-family:'DM Mono',monospace;padding:9px 12px;outline:none;transition:border-color .2s;}
+  .connect-bar input:focus{border-color:var(--purple);}
+  .connect-bar input::placeholder{color:var(--text3);font-size:12px;}
+  .connect-bar button{background:var(--purple);border:none;border-radius:9px;color:#0a0820;font-size:13px;font-weight:700;font-family:'DM Sans',sans-serif;padding:9px 20px;cursor:pointer;transition:opacity .2s,transform .1s;white-space:nowrap;flex-shrink:0;}
+  .connect-bar button:hover{opacity:.85;}
+  .err{font-size:12px;color:#FF8A80;margin-bottom:12px;font-family:'DM Mono',monospace;display:none;padding:0 4px;}
+
+  /* Info block */
+  .info-block { border:1px solid rgba(168,155,255,0.5); border-radius:18px; padding:16px; margin-bottom:18px; background:rgba(168,155,255,0.28); }
+  .info-block-label { font-size:10px; font-weight:600; color:rgba(168,155,255,0.6); text-transform:uppercase; letter-spacing:.12em; font-family:'DM Mono',monospace; margin-bottom:12px; }
+  .info-block .metrics { margin-bottom:12px; }
+  .info-block .prediction { margin-bottom:0; }
 
   /* Metrics */
-  .metrics { display:grid; grid-template-columns:repeat(3,1fr); gap:8px; margin-bottom:18px; }
-  .mcard { background:var(--bg2); border:1px solid var(--border); border-radius:12px; padding:12px 14px; }
-  .mcard-label { font-size:10px; color:rgba(238,240,255,0.7); text-transform:uppercase; letter-spacing:.1em; margin-bottom:5px; font-family:'DM Mono',monospace; }
-  .mcard-val { font-size:clamp(16px,4vw,22px); font-weight:700; font-family:'Syne',sans-serif; color:var(--text); white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+  .metrics{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;}
+  .mcard{background:var(--bg2);border:1px solid var(--border);border-radius:12px;padding:12px 14px;}
+  .mcard-label{font-size:10px;color:rgba(238,240,255,0.7);text-transform:uppercase;letter-spacing:.1em;margin-bottom:5px;font-family:'DM Mono',monospace;}
+  .mcard-val{font-size:clamp(16px,4vw,22px);font-weight:700;font-family:'Syne',sans-serif;color:var(--text);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
 
-  /* Section title */
-  .sec-title { font-size:11px; font-weight:600; color:rgba(238,240,255,0.75); text-transform:uppercase; letter-spacing:.1em; margin:26px 0 12px; font-family:'DM Mono',monospace; display:flex; align-items:center; gap:8px; }
-  .sec-title::after { content:''; flex:1; height:1px; background:var(--border); }
+  /* Section */
+  .sec-title{font-size:11px;font-weight:600;color:rgba(238,240,255,0.75);text-transform:uppercase;letter-spacing:.1em;margin:26px 0 12px;font-family:'DM Mono',monospace;display:flex;align-items:center;gap:8px;}
+  .sec-title::after{content:'';flex:1;height:1px;background:var(--border);}
+  .card{background:var(--bg2);border:1px solid var(--border);border-radius:16px;padding:16px;margin-bottom:12px;}
+  .card-title{font-size:11px;font-weight:600;color:rgba(238,240,255,0.75);text-transform:uppercase;letter-spacing:.1em;margin-bottom:16px;font-family:'DM Mono',monospace;}
 
-  /* Cards */
-  .card { background:var(--bg2); border:1px solid var(--border); border-radius:16px; padding:16px; margin-bottom:12px; }
-  .card-title { font-size:11px; font-weight:600; color:rgba(238,240,255,0.75); text-transform:uppercase; letter-spacing:.1em; margin-bottom:16px; font-family:'DM Mono',monospace; }
-
-  /* Grid */
-  .grid2 { display:grid; grid-template-columns:1fr 1fr; gap:12px; margin-bottom:12px; }
-  @media(max-width:560px) { .grid2 { grid-template-columns:1fr; } }
-  @media(max-width:420px) { .metrics { grid-template-columns:1fr 1fr; } .metrics .mcard:last-child { grid-column:span 2; } }
+  @media(max-width:560px){.grid2{grid-template-columns:1fr!important;}}
+  @media(max-width:420px){.metrics{grid-template-columns:1fr 1fr;}.metrics .mcard:last-child{grid-column:span 2;}}
 
   /* Leaderboard */
-  .lb-row { display:flex; align-items:center; gap:10px; padding:10px 8px; border-radius:10px; cursor:pointer; transition:background .15s; border-bottom:1px solid var(--border); }
-  .lb-row:last-child { border-bottom:none; }
-  .lb-row:hover { background:rgba(168,155,255,0.08); }
-  .lb-row.active { background:rgba(168,155,255,0.14); border-left:3px solid var(--purple); padding-left:5px; }
-  .rank { font-family:'Syne',sans-serif; font-size:14px; font-weight:700; width:22px; text-align:center; flex-shrink:0; }
+  .lb-row{display:flex;align-items:center;gap:10px;padding:10px 8px;border-radius:10px;cursor:pointer;transition:background .15s,transform .3s;border-bottom:1px solid var(--border);}
+  .lb-row:last-child{border-bottom:none;}
+  .lb-row:hover{background:rgba(168,155,255,0.08);}
+  .lb-row.active{background:rgba(168,155,255,0.14);border-left:3px solid var(--purple);padding-left:5px;}
+  .lb-row.new-leader{animation:leaderFlash 1s ease;}
+  @keyframes leaderFlash{0%{background:rgba(255,213,79,0.25)}100%{background:rgba(168,155,255,0.14)}}
+  .rank{font-family:'Syne',sans-serif;font-size:14px;font-weight:700;width:22px;text-align:center;flex-shrink:0;}
   .r1{color:var(--gold);} .r2{color:var(--silver);} .r3{color:var(--bronze);}
-  .country-name { flex:1; font-size:13px; font-weight:500; color:var(--text); min-width:0; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
-  .vote-wrap { display:flex; flex-direction:column; align-items:center; gap:2px; flex-shrink:0; width:46px; }
-  .vote-pct { font-size:11px; font-weight:600; font-family:'DM Mono',monospace; }
-  .vote-pct.hi { color:var(--teal); }
-  .vote-pct.lo { color:var(--text3); }
-  .vote-track { width:100%; height:3px; background:rgba(255,255,255,0.08); border-radius:2px; overflow:hidden; }
-  .vote-fill { height:100%; border-radius:2px; transition:width .8s ease; }
-  .vote-fill.hi { background:var(--teal); }
-  .vote-fill.lo { background:rgba(255,255,255,0.15); }
-  .vote-lbl { font-size:9px; color:var(--text3); font-family:'DM Mono',monospace; }
-  .total-bar-wrap { width:46px; height:4px; background:rgba(255,255,255,0.08); border-radius:2px; overflow:hidden; flex-shrink:0; }
-  .total-bar-fill { height:100%; border-radius:2px; background:var(--purple); transition:width .8s ease; }
-  .score-val { font-size:14px; font-weight:700; font-family:'Syne',sans-serif; color:var(--text); width:32px; text-align:right; flex-shrink:0; }
+  .flag-cell{font-size:18px;flex-shrink:0;line-height:1;}
+  .country-name{flex:1;font-size:13px;font-weight:500;color:var(--text);min-width:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+  .hot-badge{font-size:13px;flex-shrink:0;animation:hotPulse 1s ease-in-out infinite;}
+  @keyframes hotPulse{0%,100%{transform:scale(1)}50%{transform:scale(1.2)}}
+  .vote-wrap{display:flex;flex-direction:column;align-items:center;gap:2px;flex-shrink:0;width:46px;}
+  .vote-pct{font-size:11px;font-weight:600;font-family:'DM Mono',monospace;}
+  .vote-pct.hi{color:var(--teal);} .vote-pct.lo{color:var(--text3);}
+  .vote-track{width:100%;height:3px;background:rgba(255,255,255,0.08);border-radius:2px;overflow:hidden;}
+  .vote-fill{height:100%;border-radius:2px;transition:width .8s ease;}
+  .vote-fill.hi{background:var(--teal);} .vote-fill.lo{background:rgba(255,255,255,0.15);}
+  .vote-lbl{font-size:9px;color:var(--text3);font-family:'DM Mono',monospace;}
+  .total-bar-wrap{width:46px;height:4px;background:rgba(255,255,255,0.08);border-radius:2px;overflow:hidden;flex-shrink:0;}
+  .total-bar-fill{height:100%;border-radius:2px;background:var(--purple);transition:width .8s ease;}
+  .score-val{font-size:14px;font-weight:700;font-family:'Syne',sans-serif;color:var(--text);width:32px;text-align:right;flex-shrink:0;}
+  .lb-toggle{text-align:center;padding:10px;font-size:12px;font-family:'DM Mono',monospace;color:var(--purple);cursor:pointer;border-top:1px solid var(--border);margin-top:4px;transition:opacity .15s;letter-spacing:.04em;}
+  .lb-toggle:hover{opacity:.75;}
 
-  /* Country detail panel */
-  .detail-panel { background:var(--bg2); border:1px solid var(--border2); border-radius:16px; padding:16px; margin-bottom:12px; }
-  .detail-header { display:flex; align-items:center; justify-content:space-between; margin-bottom:16px; flex-wrap:wrap; gap:8px; }
-  .detail-name { font-family:'Syne',sans-serif; font-size:18px; font-weight:700; color:var(--text); }
-  .detail-score { font-family:'Syne',sans-serif; font-size:28px; font-weight:800; color:var(--purple); }
+  /* Prediction banner */
+  .prediction{background:linear-gradient(135deg,rgba(168,155,255,0.15),rgba(45,255,192,0.08));border:1px solid rgba(168,155,255,0.3);border-radius:14px;padding:14px 16px;margin-bottom:12px;display:flex;align-items:center;gap:14px;flex-wrap:wrap;}
+  .pred-icon{font-size:28px;flex-shrink:0;}
+  .pred-body{flex:1;}
+  .pred-label{font-size:10px;color:var(--text3);text-transform:uppercase;letter-spacing:.1em;font-family:'DM Mono',monospace;margin-bottom:3px;}
+  .pred-winner{font-family:'Syne',sans-serif;font-size:18px;font-weight:800;color:var(--text);}
+  .pred-bar-wrap{width:100%;margin-top:10px;display:flex;flex-direction:column;gap:5px;}
+  .pred-row{display:flex;align-items:center;gap:8px;}
+  .pred-name{font-size:12px;color:var(--text2);width:110px;flex-shrink:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+  .pred-track{flex:1;height:6px;background:rgba(255,255,255,0.07);border-radius:3px;overflow:hidden;}
+  .pred-fill{height:100%;border-radius:3px;background:linear-gradient(90deg,var(--purple),var(--teal));transition:width .8s ease;}
+  .pred-pct{font-size:11px;font-family:'DM Mono',monospace;color:var(--purple);width:34px;text-align:right;flex-shrink:0;}
 
-  /* Country selector */
-  .country-selector { display:flex; flex-wrap:wrap; gap:6px; margin-bottom:16px; }
-  .country-btn {
-    font-size:12px; font-weight:500; padding:6px 12px; border-radius:20px;
-    border:1px solid var(--border2); background:var(--bg3); color:var(--text2);
-    cursor:pointer; transition:all .15s; white-space:nowrap;
-  }
-  .country-btn:hover { border-color:var(--purple); color:var(--text); }
-  .country-btn.active { background:rgba(168,155,255,0.2); border-color:var(--purple); color:var(--purple); font-weight:600; }
+  /* Compare toggle row */
+  .compare-toggle-row { display:flex; align-items:center; justify-content:space-between; background:var(--bg2); border:1px solid var(--border2); border-radius:14px; padding:13px 18px; margin-bottom:8px; cursor:pointer; font-size:14px; font-weight:600; color:var(--text2); transition:border-color .2s, color .2s; }
+  .compare-toggle-row:hover { border-color:var(--purple); color:var(--text); }
+  #compare-chevron { font-size:11px; color:var(--text3); transition:transform .2s; }
+  .compare-panel { background:var(--bg2); border:1px solid var(--border2); border-radius:14px; padding:16px; margin-bottom:12px; }
+  .compare-pick-row { display:grid; grid-template-columns:1fr auto 1fr; gap:12px; align-items:start; margin-bottom:16px; }
+  @media(max-width:500px){ .compare-pick-row { grid-template-columns:1fr; } .compare-vs { display:none; } }
+  .compare-col { display:flex; flex-direction:column; gap:8px; }
+  .compare-col-label { font-size:11px; font-weight:700; text-transform:uppercase; letter-spacing:.08em; font-family:'DM Mono',monospace; }
+  .compare-vs { display:flex; align-items:center; justify-content:center; font-family:'Syne',sans-serif; font-weight:800; font-size:16px; color:var(--text3); padding-top:24px; }
 
-  /* Category bars — BRIGHTER */
-  .cats { display:flex; flex-direction:column; gap:12px; }
-  .cat-row { display:flex; align-items:center; gap:10px; }
-  .cat-label { font-size:13px; font-weight:600; width:110px; flex-shrink:0; display:flex; align-items:center; gap:6px; }
-  .cat-bar-wrap { flex:1; height:8px; background:rgba(255,255,255,0.08); border-radius:4px; overflow:hidden; }
-  .cat-bar { height:100%; border-radius:4px; transition:width .8s ease; box-shadow:0 0 8px rgba(255,255,255,0.15); }
-  .cat-num { font-size:13px; font-weight:700; font-family:'DM Mono',monospace; width:28px; text-align:right; }
+  /* Detail panel */
+  .detail-panel{background:var(--bg2);border:1px solid var(--border2);border-radius:16px;padding:16px;margin-bottom:12px;}
+  .detail-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:12px;flex-wrap:wrap;gap:8px;}
+  .detail-name{font-family:'Syne',sans-serif;font-size:18px;font-weight:700;color:var(--text);}
+  .detail-score{font-family:'Syne',sans-serif;font-size:28px;font-weight:800;color:var(--purple);}
+  .country-selector{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:14px;}
+  .country-btn{font-size:12px;font-weight:500;padding:6px 12px;border-radius:20px;border:1px solid var(--border2);background:var(--bg3);color:var(--text2);cursor:pointer;transition:all .15s;white-space:nowrap;}
+  .country-btn:hover{border-color:var(--purple);color:var(--text);}
+  .country-btn.active{background:rgba(168,155,255,0.2);border-color:var(--purple);color:var(--purple);font-weight:600;}
+  .country-btn.active-b{background:rgba(45,255,192,0.15);border-color:#2DFFC0;color:#2DFFC0;font-weight:600;}
 
-  /* Award cards */
-  .awards { display:grid; grid-template-columns:repeat(auto-fill,minmax(100px,1fr)); gap:8px; }
-  @media(max-width:400px) { .awards { grid-template-columns:repeat(2,1fr); } }
-  .award-card { background:var(--bg3); border:1px solid var(--border); border-radius:14px; padding:14px 10px; text-align:center; transition:transform .2s,border-color .2s,box-shadow .2s; }
-  .award-card:hover { transform:translateY(-4px); box-shadow:0 8px 24px rgba(168,155,255,0.15); }
-  .award-icon { font-size:22px; margin-bottom:6px; }
-  .award-cat { font-size:10px; font-weight:600; text-transform:uppercase; letter-spacing:.08em; margin-bottom:6px; font-family:'DM Mono',monospace; }
-  .award-winner { font-size:12px; font-weight:500; color:var(--text); margin-bottom:5px; line-height:1.3; min-height:28px; display:flex; align-items:center; justify-content:center; }
-  .award-score { font-size:20px; font-weight:800; font-family:'Syne',sans-serif; }
+  /* Category bars */
+  .cats{display:flex;flex-direction:column;gap:12px;}
+  .cat-row{display:flex;align-items:center;gap:10px;}
+  .cat-label{font-size:13px;font-weight:600;width:110px;flex-shrink:0;display:flex;align-items:center;gap:6px;}
+  .cat-bar-wrap{flex:1;height:8px;background:rgba(255,255,255,0.08);border-radius:4px;overflow:hidden;position:relative;}
+  .cat-bar{height:100%;border-radius:4px;transition:width .8s ease;}
+  .cat-bar-b{height:100%;border-radius:4px;transition:width .8s ease;opacity:0.5;position:absolute;top:0;left:0;}
+  .cat-num{font-size:13px;font-weight:700;font-family:'DM Mono',monospace;width:28px;text-align:right;}
 
-  /* Podium rows */
-  .podiums { display:flex; flex-direction:column; gap:7px; }
-  .podium-row { background:var(--bg3); border:1px solid var(--border); border-radius:12px; padding:11px 14px; display:flex; align-items:flex-start; gap:12px; flex-wrap:wrap; }
-  .podium-cat { font-size:12px; font-weight:600; width:110px; flex-shrink:0; padding-top:3px; display:flex; align-items:center; gap:5px; }
-  .podium-winners { display:flex; gap:6px; flex:1; flex-wrap:wrap; }
-  .podium-pill { font-size:12px; font-weight:500; padding:4px 11px; border-radius:20px; }
-  .pp1 { background:rgba(255,213,79,0.13); color:var(--gold); }
-  .pp2 { background:rgba(207,216,220,0.1); color:var(--silver); }
-  .pp3 { background:rgba(255,171,118,0.12); color:var(--bronze); }
-  /* Worst */
-  .pw1 { background:rgba(255,80,80,0.13); color:#FF8A80; }
-  .pw2 { background:rgba(255,120,80,0.1); color:#FFAB90; }
-  .pw3 { background:rgba(200,200,200,0.08); color:var(--text3); }
+  /* Compare legend */
+  .compare-legend{display:flex;gap:14px;margin-bottom:10px;font-size:12px;font-family:'DM Mono',monospace;}
+  .cleg{display:flex;align-items:center;gap:5px;}
+  .cleg-dot{width:10px;height:10px;border-radius:3px;flex-shrink:0;}
 
-  /* Tabs for best/worst */
-  .tabs { display:flex; gap:6px; margin-bottom:12px; }
-  .tab { font-size:12px; font-weight:600; padding:6px 16px; border-radius:20px; border:1px solid var(--border2); background:var(--bg3); color:var(--text2); cursor:pointer; transition:all .15s; font-family:'DM Mono',monospace; }
-  .tab.active { background:rgba(168,155,255,0.18); border-color:var(--purple); color:var(--purple); }
+  /* Awards */
+  .awards{display:grid;grid-template-columns:repeat(auto-fill,minmax(100px,1fr));gap:8px;}
+  @media(max-width:400px){.awards{grid-template-columns:repeat(2,1fr);}}
+  .award-card{background:var(--bg3);border:1px solid var(--border);border-radius:14px;padding:14px 10px;text-align:center;transition:transform .2s,border-color .2s,box-shadow .2s;}
+  .award-card:hover{transform:translateY(-4px);box-shadow:0 8px 24px rgba(168,155,255,0.15);}
+  .award-icon{font-size:22px;margin-bottom:6px;}
+  .award-cat{font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:.08em;margin-bottom:6px;font-family:'DM Mono',monospace;}
+  .award-winner{font-size:12px;font-weight:500;color:var(--text);margin-bottom:5px;line-height:1.3;min-height:28px;display:flex;align-items:center;justify-content:center;}
+  .award-score{font-size:20px;font-weight:800;font-family:'Syne',sans-serif;}
+
+  /* Podiums */
+  .podiums{display:flex;flex-direction:column;gap:7px;}
+  .podium-row{background:var(--bg3);border:1px solid var(--border);border-radius:12px;padding:11px 14px;display:flex;align-items:flex-start;gap:12px;flex-wrap:wrap;}
+  .podium-cat{font-size:12px;font-weight:600;width:110px;flex-shrink:0;padding-top:3px;display:flex;align-items:center;gap:5px;}
+  .podium-winners{display:flex;gap:6px;flex:1;flex-wrap:wrap;}
+  .podium-pill{font-size:12px;font-weight:500;padding:4px 11px;border-radius:20px;}
+  .pp1{background:rgba(255,213,79,0.13);color:var(--gold);}
+  .pp2{background:rgba(207,216,220,0.1);color:var(--silver);}
+  .pp3{background:rgba(255,171,118,0.12);color:var(--bronze);}
+  .pw1{background:rgba(255,80,80,0.13);color:#FF8A80;}
+  .pw2{background:rgba(255,120,80,0.1);color:#FFAB90;}
+  .pw3{background:rgba(200,200,200,0.08);color:var(--text3);}
+  .tabs{display:flex;gap:6px;margin-bottom:12px;}
+  .tab{font-size:12px;font-weight:600;padding:6px 16px;border-radius:20px;border:1px solid var(--border2);background:var(--bg3);color:var(--text2);cursor:pointer;transition:all .15s;font-family:'DM Mono',monospace;}
+  .tab.active{background:rgba(168,155,255,0.18);border-color:var(--purple);color:var(--purple);}
 
   /* Word cloud */
-  .wordcloud { display:flex; flex-wrap:wrap; gap:8px; align-items:center; min-height:52px; }
-  .word { border-radius:8px; padding:5px 13px; font-weight:600; cursor:default; transition:transform .15s; }
-  .word:hover { transform:scale(1.1); }
+  .wordcloud{display:flex;flex-wrap:wrap;gap:8px;align-items:center;min-height:52px;}
+  .word{border-radius:8px;padding:5px 13px;font-weight:600;cursor:default;transition:transform .15s;}
+  .word:hover{transform:scale(1.1);}
 
-  .status { font-size:11px; color:var(--text3); text-align:center; margin-top:12px; font-family:'DM Mono',monospace; }
+  /* Confetti canvas */
+  #confetti-canvas{position:fixed;inset:0;pointer-events:none;z-index:999;}
+
+  .status{font-size:11px;color:var(--text3);text-align:center;margin-top:12px;font-family:'DM Mono',monospace;}
 </style>
 </head>
 <body>
+<canvas id="confetti-canvas"></canvas>
 <div class="stars" id="stars"></div>
 <div class="container">
 
@@ -195,10 +192,23 @@
   </div>
   <div class="err" id="err-msg">⚠ Could not load data. Check the link — it should end with &amp;output=csv</div>
 
-  <div class="metrics">
-    <div class="mcard"><div class="mcard-label">Countries</div><div class="mcard-val" id="m-count">—</div></div>
-    <div class="mcard"><div class="mcard-label">Leader</div><div class="mcard-val" id="m-leader">—</div></div>
-    <div class="mcard"><div class="mcard-label">Top score</div><div class="mcard-val" id="m-score">—</div></div>
+  <div class="info-block">
+    <div class="info-block-label">📡 Live stats</div>
+    <div class="metrics">
+      <div class="mcard"><div class="mcard-label">Voted / Total</div><div class="mcard-val" id="m-count">—</div></div>
+      <div class="mcard"><div class="mcard-label">Leader</div><div class="mcard-val" id="m-leader">—</div></div>
+      <div class="mcard"><div class="mcard-label">Top score</div><div class="mcard-val" id="m-score">—</div></div>
+    </div>
+
+    <!-- Prediction -->
+    <div class="prediction" id="prediction" style="display:none">
+    <div class="pred-icon">🔮</div>
+    <div class="pred-body">
+      <div class="pred-label">Predicted winner</div>
+      <div class="pred-winner" id="pred-winner">—</div>
+      <div class="pred-bar-wrap" id="pred-bars"></div>
+    </div>
+  </div>
   </div>
 
   <!-- Leaderboard -->
@@ -207,14 +217,36 @@
     <div id="leaderboard"></div>
   </div>
 
-  <!-- Country detail -->
-  <div class="detail-panel" id="detail-panel">
+  <!-- Overview panel -->
+  <div class="detail-panel">
     <div class="detail-header">
       <div class="detail-name" id="detail-name">—</div>
       <div class="detail-score" id="detail-score">—</div>
     </div>
+    <div class="card-title" style="margin-bottom:12px;">📊 Overview — tap a country in the leaderboard</div>
     <div class="country-selector" id="country-selector"></div>
     <div class="cats" id="categories"></div>
+  </div>
+
+  <!-- Compare panel (collapsible) -->
+  <div class="compare-toggle-row" onclick="toggleCompare()">
+    <span>⚔️ Compare two countries</span>
+    <span id="compare-chevron">▼</span>
+  </div>
+  <div class="compare-panel" id="compare-panel" style="display:none">
+    <div class="compare-pick-row">
+      <div class="compare-col">
+        <div class="compare-col-label" style="color:#A89BFF">Country A</div>
+        <div class="country-selector" id="compare-selector-a"></div>
+      </div>
+      <div class="compare-vs">VS</div>
+      <div class="compare-col">
+        <div class="compare-col-label" style="color:#2DFFC0">Country B</div>
+        <div class="country-selector" id="compare-selector-b"></div>
+      </div>
+    </div>
+    <div class="compare-legend" id="compare-legend" style="display:none"></div>
+    <div class="cats" id="compare-categories"></div>
   </div>
 
   <div class="sec-title">🏅 Category winners</div>
@@ -236,43 +268,334 @@
 </div>
 
 <script>
-const CATS = [
-  {key:'vocals',     label:'Vocals',      icon:'🎤', color:'#C4BEFF', scoreColor:'#C4BEFF'},
-  {key:'outfit',     label:'Outfit',      icon:'👗', color:'#2DFFC0', scoreColor:'#2DFFC0'},
-  {key:'staging',    label:'Staging',     icon:'🎭', color:'#FF7A5C', scoreColor:'#FF7A5C'},
-  {key:'choreo',     label:'Choreo',      icon:'💃', color:'#FF7EB3', scoreColor:'#FF7EB3'},
-  {key:'eurovision', label:'Eurovision',  icon:'⭐', color:'#6EC6FF', scoreColor:'#6EC6FF'},
-  {key:'tiktok',     label:'TikTok vibe', icon:'📱', color:'#FFD060', scoreColor:'#FFD060'},
-  {key:'confused',   label:'Confused?',   icon:'😵', color:'#B0BEC5', scoreColor:'#B0BEC5'},
+const CATS=[
+  {key:'vocals',label:'Vocals',icon:'🎤',color:'#C4BEFF'},
+  {key:'outfit',label:'Outfit',icon:'👗',color:'#2DFFC0'},
+  {key:'staging',label:'Staging',icon:'🎭',color:'#FF7A5C'},
+  {key:'choreo',label:'Choreo',icon:'💃',color:'#FF7EB3'},
+  {key:'eurovision',label:'Eurovision',icon:'⭐',color:'#6EC6FF'},
+  {key:'tiktok',label:'TikTok vibe',icon:'📱',color:'#FFD060'},
+  {key:'confused',label:'Confused?',icon:'😵',color:'#B0BEC5'},
 ];
-const WORD_COLORS = [
+const WORD_COLORS=[
   {bg:'rgba(196,190,255,0.18)',fg:'#C4BEFF'},{bg:'rgba(45,255,192,0.15)',fg:'#2DFFC0'},
   {bg:'rgba(255,122,92,0.18)',fg:'#FF9A80'},{bg:'rgba(255,208,96,0.15)',fg:'#FFD060'},
   {bg:'rgba(255,126,179,0.15)',fg:'#FF7EB3'},{bg:'rgba(110,198,255,0.15)',fg:'#6EC6FF'},
   {bg:'rgba(180,255,130,0.12)',fg:'#A5D66B'},{bg:'rgba(176,190,197,0.15)',fg:'#B0BEC5'},
 ];
-const DEMO = [
-  {country:'France - Sarah Engels', vocals:6.5,outfit:8,staging:6.5,choreo:7,eurovision:9.5,tiktok:7.5,confused:4,vote:'0%',word:'amn',total:7},
-  {country:'Lithuania - Lion Ceccah', vocals:7,outfit:7,staging:7,choreo:6.5,eurovision:9,tiktok:9,confused:4,vote:'100%',word:'bralukas',total:7.07},
-  {country:'Armenia - Simon - Palor', vocals:4.5,outfit:6.5,staging:3.5,choreo:8,eurovision:8,tiktok:4.5,confused:9,vote:'0%',word:'two',total:6.29},
+const FLAGS={
+  'albania':'🇦🇱','andorra':'🇦🇩','armenia':'🇦🇲','australia':'🇦🇺','austria':'🇦🇹',
+  'azerbaijan':'🇦🇿','belarus':'🇧🇾','belgium':'🇧🇪','bosnia':'🇧🇦','bulgaria':'🇧🇬',
+  'croatia':'🇭🇷','cyprus':'🇨🇾','czech':'🇨🇿','denmark':'🇩🇰','estonia':'🇪🇪',
+  'finland':'🇫🇮','france':'🇫🇷','georgia':'🇬🇪','germany':'🇩🇪','greece':'🇬🇷',
+  'hungary':'🇭🇺','iceland':'🇮🇸','ireland':'🇮🇪','israel':'🇮🇱','italy':'🇮🇹',
+  'latvia':'🇱🇻','lithuania':'🇱🇹','luxembourg':'🇱🇺','malta':'🇲🇹','moldova':'🇲🇩',
+  'monaco':'🇲🇨','montenegro':'🇲🇪','netherlands':'🇳🇱','north macedonia':'🇲🇰',
+  'norway':'🇳🇴','poland':'🇵🇱','portugal':'🇵🇹','romania':'🇷🇴','san marino':'🇸🇲',
+  'serbia':'🇷🇸','slovakia':'🇸🇰','slovenia':'🇸🇮','spain':'🇪🇸','sweden':'🇸🇪',
+  'switzerland':'🇨🇭','turkey':'🇹🇷','ukraine':'🇺🇦','united kingdom':'🇬🇧','uk':'🇬🇧',
+};
+const DEMO=[
+  {country:'France - Sarah Engels',vocals:6.5,outfit:8,staging:6.5,choreo:7,eurovision:9.5,tiktok:7.5,confused:4,vote:'50%',word:'magnifique',total:7},
+  {country:'Lithuania - Lion Ceccah',vocals:7,outfit:7,staging:7,choreo:6.5,eurovision:9,tiktok:9,confused:4,vote:'100%',word:'bralukas',total:7.07},
+  {country:'Armenia - Simon - Palor',vocals:4.5,outfit:6.5,staging:3.5,choreo:8,eurovision:8,tiktok:4.5,confused:9,vote:'0%',word:'confused',total:6.29},
+  {country:'Norway',vocals:0,outfit:0,staging:0,choreo:0,eurovision:0,tiktok:0,confused:0,vote:'0%',word:'',total:0},
+  {country:'Denmark',vocals:0,outfit:0,staging:0,choreo:0,eurovision:0,tiktok:0,confused:0,vote:'0%',word:'',total:0},
+  {country:'Germany',vocals:0,outfit:0,staging:0,choreo:0,eurovision:0,tiktok:0,confused:0,vote:'0%',word:'',total:0},
+  {country:'Israel',vocals:0,outfit:0,staging:0,choreo:0,eurovision:0,tiktok:0,confused:0,vote:'0%',word:'',total:0},
+  {country:'Belgium',vocals:0,outfit:0,staging:0,choreo:0,eurovision:0,tiktok:0,confused:0,vote:'0%',word:'',total:0},
+  {country:'Albania',vocals:0,outfit:0,staging:0,choreo:0,eurovision:0,tiktok:0,confused:0,vote:'0%',word:'',total:0},
+  {country:'Greece',vocals:0,outfit:0,staging:0,choreo:0,eurovision:0,tiktok:0,confused:0,vote:'0%',word:'',total:0},
+  {country:'Ukraine',vocals:0,outfit:0,staging:0,choreo:0,eurovision:0,tiktok:0,confused:0,vote:'0%',word:'',total:0},
+  {country:'Australia',vocals:0,outfit:0,staging:0,choreo:0,eurovision:0,tiktok:0,confused:0,vote:'0%',word:'',total:0},
+  {country:'Serbia',vocals:0,outfit:0,staging:0,choreo:0,eurovision:0,tiktok:0,confused:0,vote:'0%',word:'',total:0},
+  {country:'Malta',vocals:0,outfit:0,staging:0,choreo:0,eurovision:0,tiktok:0,confused:0,vote:'0%',word:'',total:0},
+  {country:'Portugal',vocals:0,outfit:0,staging:0,choreo:0,eurovision:0,tiktok:0,confused:0,vote:'0%',word:'',total:0},
+  {country:'Sweden',vocals:0,outfit:0,staging:0,choreo:0,eurovision:0,tiktok:0,confused:0,vote:'0%',word:'',total:0},
+  {country:'Iceland',vocals:0,outfit:0,staging:0,choreo:0,eurovision:0,tiktok:0,confused:0,vote:'0%',word:'',total:0},
+  {country:'Poland',vocals:0,outfit:0,staging:0,choreo:0,eurovision:0,tiktok:0,confused:0,vote:'0%',word:'',total:0},
+  {country:'Italy',vocals:0,outfit:0,staging:0,choreo:0,eurovision:0,tiktok:0,confused:0,vote:'0%',word:'',total:0},
+  {country:'Spain',vocals:0,outfit:0,staging:0,choreo:0,eurovision:0,tiktok:0,confused:0,vote:'0%',word:'',total:0},
+  {country:'Switzerland',vocals:0,outfit:0,staging:0,choreo:0,eurovision:0,tiktok:0,confused:0,vote:'0%',word:'',total:0},
+  {country:'Austria',vocals:0,outfit:0,staging:0,choreo:0,eurovision:0,tiktok:0,confused:0,vote:'0%',word:'',total:0},
+  {country:'Estonia',vocals:0,outfit:0,staging:0,choreo:0,eurovision:0,tiktok:0,confused:0,vote:'0%',word:'',total:0},
+  {country:'Finland',vocals:0,outfit:0,staging:0,choreo:0,eurovision:0,tiktok:0,confused:0,vote:'0%',word:'',total:0},
+  {country:'United Kingdom',vocals:0,outfit:0,staging:0,choreo:0,eurovision:0,tiktok:0,confused:0,vote:'0%',word:'',total:0},
 ];
 
-let data=[...DEMO], selectedIdx=0, csvUrl='', countdown=10, podiumTab='best';
+let data=[...DEMO],selectedIdx=0,compareIdxA=0,compareIdxB=1,csvUrl='',countdown=10,podiumTab='best',lbExpanded=false,prevLeader='',scoreHistory={},compareOpen=false;
 
-function shortName(s){ return (s.split('-')[0]||s).trim(); }
-function parsePct(v){ if(!v||v==='—') return 0; return parseFloat(v.replace('%',''))||0; }
+function shortName(s){const p=s.split('-');const f=(p[0]||s).trim().replace(/^\d+\s*/,'');return f||s.trim();}
+function parsePct(v){if(!v||v==='—')return 0;return parseFloat(v.replace('%',''))||0;}
+function getFlag(n){const l=n.toLowerCase();for(const[k,f]of Object.entries(FLAGS)){if(l.includes(k))return f;}return'🏳️';}
 
 function parseCSV(text){
   const lines=text.trim().split('\n').filter(l=>l.trim());
-  if(lines.length<2) return [];
+  if(lines.length<2)return[];
   return lines.slice(1).map(line=>{
     const c=line.split(',');
-    if(!c[0]||!c[0].trim()) return null;
-    return { country:c[0]?.trim()||'', vocals:parseFloat(c[1])||0, outfit:parseFloat(c[2])||0,
-      staging:parseFloat(c[3])||0, choreo:parseFloat(c[4])||0, eurovision:parseFloat(c[5])||0,
-      tiktok:parseFloat(c[6])||0, confused:parseFloat(c[7])||0,
-      vote:c[8]?.trim()||'0%', word:c[9]?.trim()||'', total:parseFloat(c[10])||0 };
+    if(!c[0]||!c[0].trim())return null;
+    return{country:c[0]?.trim()||'',vocals:parseFloat(c[1])||0,outfit:parseFloat(c[2])||0,staging:parseFloat(c[3])||0,choreo:parseFloat(c[4])||0,eurovision:parseFloat(c[5])||0,tiktok:parseFloat(c[6])||0,confused:parseFloat(c[7])||0,vote:c[8]?.trim()||'0%',word:c[9]?.trim()||'',total:parseFloat(c[10])||0};
   }).filter(Boolean).filter(r=>r.country);
+}
+
+// ── HOT STREAK ────────────────────────────────────
+function updateScoreHistory(newData){
+  newData.forEach(c=>{
+    const key=c.country;
+    if(!scoreHistory[key])scoreHistory[key]=[];
+    scoreHistory[key].push(c.total);
+    if(scoreHistory[key].length>3)scoreHistory[key].shift();
+  });
+}
+function isHot(country){
+  const h=scoreHistory[country];
+  if(!h||h.length<2)return false;
+  // rising consistently in last reads
+  for(let i=1;i<h.length;i++){if(h[i]<=h[i-1])return false;}
+  return true;
+}
+
+// ── PREDICTION ────────────────────────────────────
+function renderPrediction(){
+  const voted=data.filter(c=>c.total>0).sort((a,b)=>b.total-a.total);
+  if(voted.length<2){document.getElementById('prediction').style.display='none';return;}
+  document.getElementById('prediction').style.display='flex';
+  const scores=voted.map(c=>Math.max(c.total,0.1));
+  const exp=scores.map(s=>Math.pow(s,4));
+  const total=exp.reduce((a,b)=>a+b,0);
+  const probs=exp.map(e=>Math.round(e/total*100));
+  const top=voted[0];
+  const name=shortName(top.country);
+  document.getElementById('pred-winner').textContent=getFlag(name)+' '+name;
+  document.getElementById('pred-bars').innerHTML=voted.slice(0,5).map((c,i)=>{
+    const n=shortName(c.country);
+    return`<div class="pred-row">
+      <div class="pred-name">${getFlag(n)} ${n}</div>
+      <div class="pred-track"><div class="pred-fill" style="width:${probs[i]}%"></div></div>
+      <div class="pred-pct">${probs[i]}%</div>
+    </div>`;
+  }).join('');
+}
+
+// ── CONFETTI ──────────────────────────────────────
+const canvas=document.getElementById('confetti-canvas');
+const ctx=canvas.getContext('2d');
+let confettiParticles=[];
+let confettiRunning=false;
+
+function resizeCanvas(){canvas.width=window.innerWidth;canvas.height=window.innerHeight;}
+window.addEventListener('resize',resizeCanvas);resizeCanvas();
+
+function launchConfetti(){
+  confettiParticles=[];
+  for(let i=0;i<180;i++){
+    const colors=['#A89BFF','#2DFFC0','#FFD060','#FF7EB3','#6EC6FF','#FF7A5C','#FFD54F'];
+    confettiParticles.push({
+      x:Math.random()*canvas.width,y:-10,
+      w:6+Math.random()*8,h:10+Math.random()*8,
+      color:colors[Math.floor(Math.random()*colors.length)],
+      vx:(Math.random()-0.5)*4,vy:2+Math.random()*4,
+      rot:Math.random()*360,vrot:(Math.random()-0.5)*8,
+      opacity:1,
+    });
+  }
+  if(!confettiRunning){confettiRunning=true;animConfetti();}
+}
+
+function animConfetti(){
+  ctx.clearRect(0,0,canvas.width,canvas.height);
+  confettiParticles=confettiParticles.filter(p=>p.opacity>0);
+  confettiParticles.forEach(p=>{
+    p.x+=p.vx;p.y+=p.vy;p.vy+=0.1;p.rot+=p.vrot;
+    if(p.y>canvas.height*0.7)p.opacity-=0.03;
+    ctx.save();ctx.translate(p.x,p.y);ctx.rotate(p.rot*Math.PI/180);
+    ctx.globalAlpha=p.opacity;ctx.fillStyle=p.color;
+    ctx.fillRect(-p.w/2,-p.h/2,p.w,p.h);ctx.restore();
+  });
+  if(confettiParticles.length>0){requestAnimationFrame(animConfetti);}
+  else{confettiRunning=false;ctx.clearRect(0,0,canvas.width,canvas.height);}
+}
+
+// ── RENDER ────────────────────────────────────────
+function render(){
+  if(!data.length)return;
+  const voted=data.filter(c=>c.total>0);
+  const votedSorted=[...voted].sort((a,b)=>b.total-a.total);
+  const max=votedSorted.length?votedSorted[0].total:1;
+  const newLeader=votedSorted.length?votedSorted[0].country:'';
+
+  const leaderChanged=newLeader&&prevLeader&&prevLeader!==newLeader;
+  if(leaderChanged){launchConfetti();}
+  if(newLeader) prevLeader=newLeader;
+
+  const leaderName=newLeader?shortName(newLeader):'—';
+  document.getElementById('m-count').textContent=voted.length+' / '+data.length;
+  document.getElementById('m-leader').textContent=newLeader?getFlag(leaderName)+' '+leaderName:'—';
+  document.getElementById('m-score').textContent=votedSorted.length?votedSorted[0].total.toFixed(2):'—';
+
+  const rankCls=['r1','r2','r3'];
+  // Leaderboard: voted first sorted by score, then unvoted alphabetically
+  const unvoted=data.filter(c=>c.total===0).sort((a,b)=>shortName(a.country).localeCompare(shortName(b.country)));
+  const allSorted=[...votedSorted,...unvoted];
+  const visible=lbExpanded?allSorted:allSorted.slice(0,5);
+  const rows=visible.map((c,i)=>{
+    const oi=data.indexOf(c);
+    const active=oi===selectedIdx?' active':'';
+    const pct=parsePct(c.vote);
+    const hi=pct>=50;
+    const vDisp=c.vote&&c.vote!=='—'?c.vote:'0%';
+    const name=shortName(c.country);
+    const flag=getFlag(name);
+    const hot=isHot(c.country)?'<span class="hot-badge" title="Rising fast!">🔥</span>':'';
+    const isLeader=i===0&&c.total>0;
+    return`<div class="lb-row${active}${isLeader&&leaderChanged?' new-leader':''}" onclick="selectC(${oi})">
+      <div class="rank ${rankCls[i]||''}">${c.total>0?i+1:'·'}</div>
+      <div class="flag-cell">${flag}</div>
+      <div class="country-name" style="${c.total===0?'color:var(--text3)':''}">${name}</div>
+      ${hot}
+      <div class="vote-wrap">
+        <div class="vote-pct ${hi?'hi':'lo'}">${c.total>0?vDisp:'—'}</div>
+        <div class="vote-track"><div class="vote-fill ${hi?'hi':'lo'}" style="width:${c.total>0?pct:0}%"></div></div>
+        <div class="vote-lbl">would vote</div>
+      </div>
+      <div class="total-bar-wrap"><div class="total-bar-fill" style="width:${max>0?Math.round(c.total/max*100):0}%"></div></div>
+      <div class="score-val" style="${c.total===0?'color:var(--text3)':''}">${c.total>0?c.total.toFixed(1):'—'}</div>
+    </div>`;
+  }).join('');
+  const toggleBtn=allSorted.length>5?`<div class="lb-toggle" onclick="toggleLb()">${lbExpanded?'▲ Show top 5 only':`▼ Show all ${allSorted.length} countries`}</div>`:'';
+  document.getElementById('leaderboard').innerHTML=rows+toggleBtn;
+
+  renderPrediction();
+  renderDetail();
+  renderAwards();
+  renderPodiums();
+  renderWords();
+}
+
+function selectC(idx){selectedIdx=idx;render();}
+
+function toggleCompare(){
+  compareOpen=!compareOpen;
+  document.getElementById('compare-panel').style.display=compareOpen?'block':'none';
+  document.getElementById('compare-chevron').style.transform=compareOpen?'rotate(180deg)':'';
+  if(compareOpen) renderCompare();
+}
+
+function selectCompareA(idx){compareIdxA=idx;renderCompare();}
+function selectCompareB(idx){compareIdxB=idx;renderCompare();}
+
+function renderDetail(){
+  const c=data[selectedIdx]||data[0]; if(!c) return;
+  const name=shortName(c.country);
+  document.getElementById('detail-name').textContent=getFlag(name)+' '+name;
+  document.getElementById('detail-score').textContent=c.total>0?c.total.toFixed(2):'—';
+
+  // Overview country buttons
+  document.getElementById('country-selector').innerHTML=data.map((d,i)=>{
+    const n=shortName(d.country);
+    return`<div class="country-btn${i===selectedIdx?' active':''}" onclick="selectC(${i})">${getFlag(n)} ${n}</div>`;
+  }).join('');
+
+  // Category bars (single)
+  document.getElementById('categories').innerHTML=CATS.map(cat=>{
+    const val=c[cat.key]||0;
+    return`<div class="cat-row">
+      <div class="cat-label" style="color:${cat.color}">${cat.icon} ${cat.label}</div>
+      <div class="cat-bar-wrap"><div class="cat-bar" style="width:${Math.round(val/10*100)}%;background:${cat.color};box-shadow:0 0 10px ${cat.color}60"></div></div>
+      <div class="cat-num" style="color:${cat.color}">${val.toFixed(1)}</div>
+    </div>`;
+  }).join('');
+}
+
+function renderCompare(){
+  if(!data.length) return;
+  const cA=data[compareIdxA]||data[0];
+  const cB=data[compareIdxB]||data[Math.min(1,data.length-1)];
+
+  // Selector A
+  document.getElementById('compare-selector-a').innerHTML=data.map((d,i)=>{
+    const n=shortName(d.country);
+    return`<div class="country-btn${i===compareIdxA?' active':''}" onclick="selectCompareA(${i})">${getFlag(n)} ${n}</div>`;
+  }).join('');
+
+  // Selector B
+  document.getElementById('compare-selector-b').innerHTML=data.map((d,i)=>{
+    const n=shortName(d.country);
+    return`<div class="country-btn${i===compareIdxB?' active-b':''}" onclick="selectCompareB(${i})">${getFlag(n)} ${n}</div>`;
+  }).join('');
+
+  // Legend
+  const legend=document.getElementById('compare-legend');
+  legend.style.display='flex';
+  const nA=shortName(cA.country),nB=shortName(cB.country);
+  legend.innerHTML=`<div class="cleg"><div class="cleg-dot" style="background:#A89BFF"></div>${getFlag(nA)} ${nA} (${cA.total.toFixed(1)})</div>
+    <div class="cleg"><div class="cleg-dot" style="background:#2DFFC0;opacity:.8"></div>${getFlag(nB)} ${nB} (${cB.total.toFixed(1)})</div>`;
+
+  // Bars side by side
+  document.getElementById('compare-categories').innerHTML=CATS.map(cat=>{
+    const vA=cA[cat.key]||0, vB=cB[cat.key]||0;
+    const winner=vA>vB?'A':vA<vB?'B':'tie';
+    return`<div class="cat-row">
+      <div class="cat-label" style="color:${cat.color}">${cat.icon} ${cat.label}</div>
+      <div class="cat-bar-wrap" style="position:relative;height:14px;background:rgba(255,255,255,0.06);border-radius:4px;overflow:hidden;">
+        <div style="position:absolute;top:0;left:0;height:50%;width:${Math.round(vA/10*100)}%;background:#A89BFF;border-radius:3px;transition:width .8s ease;"></div>
+        <div style="position:absolute;bottom:0;left:0;height:50%;width:${Math.round(vB/10*100)}%;background:#2DFFC0;opacity:.8;border-radius:3px;transition:width .8s ease;"></div>
+      </div>
+      <div class="cat-num" style="font-size:11px;width:52px;text-align:right">
+        <span style="color:#A89BFF;font-weight:${winner==='A'?700:400}">${vA.toFixed(1)}</span>
+        <span style="color:var(--text3)"> / </span>
+        <span style="color:#2DFFC0;font-weight:${winner==='B'?700:400}">${vB.toFixed(1)}</span>
+      </div>
+    </div>`;
+  }).join('');
+}
+
+function renderAwards(){
+  const voted=data.filter(c=>c.total>0);
+  if(!voted.length){document.getElementById('awards').innerHTML='<div style="color:var(--text3);font-size:13px;padding:8px">No votes yet</div>';return;}
+  document.getElementById('awards').innerHTML=CATS.map(cat=>{
+    const winner=[...voted].sort((a,b)=>b[cat.key]-a[cat.key])[0];
+    if(!winner)return'';
+    const name=shortName(winner.country);
+    return`<div class="award-card" style="border-color:${cat.color}22">
+      <div class="award-icon">${cat.icon}</div>
+      <div class="award-cat" style="color:${cat.color}">${cat.label}</div>
+      <div class="award-winner">${getFlag(name)} ${name}</div>
+      <div class="award-score" style="color:${cat.color}">${(winner[cat.key]||0).toFixed(1)}</div>
+    </div>`;
+  }).join('');
+}
+
+function renderPodiums(){
+  const voted=data.filter(c=>c.total>0);
+  const isBest=podiumTab==='best';
+  document.getElementById('podiums').innerHTML=CATS.map(cat=>{
+    if(!voted.length)return`<div class="podium-row"><div class="podium-cat" style="color:${cat.color}">${cat.icon} ${cat.label}</div><div style="color:var(--text3);font-size:12px;padding:4px">No votes yet</div></div>`;
+    const s=[...voted].sort((a,b)=>isBest?b[cat.key]-a[cat.key]:a[cat.key]-b[cat.key]);
+    const pills=s.slice(0,3).map((c,i)=>{
+      const cls=isBest?['pp1','pp2','pp3'][i]:['pw1','pw2','pw3'][i];
+      const medal=isBest?['🥇','🥈','🥉'][i]:['💀','😬','😶'][i];
+      const name=shortName(c.country);
+      return`<span class="podium-pill ${cls}">${medal} ${getFlag(name)} ${name} ${(c[cat.key]||0).toFixed(1)}</span>`;
+    }).join('');
+    return`<div class="podium-row">
+      <div class="podium-cat" style="color:${cat.color}">${cat.icon} ${cat.label}</div>
+      <div class="podium-winners">${pills}</div>
+    </div>`;
+  }).join('');
+}
+
+function renderWords(){
+  const freq={};
+  data.forEach(c=>{if(c.word){const w=c.word.toLowerCase().trim();freq[w]=(freq[w]||0)+1;}});
+  const sorted=Object.entries(freq).sort((a,b)=>b[1]-a[1]);
+  const maxF=sorted[0]?.[1]||1;
+  document.getElementById('wordcloud').innerHTML=sorted.map(([word,count],i)=>{
+    const size=Math.round(13+(count/maxF)*15);
+    const col=WORD_COLORS[i%WORD_COLORS.length];
+    return`<span class="word" style="font-size:${size}px;background:${col.bg};color:${col.fg}">${word}</span>`;
+  }).join('');
 }
 
 function switchTab(t){
@@ -282,148 +605,51 @@ function switchTab(t){
   renderPodiums();
 }
 
-function render(){
-  if(!data.length) return;
-  const sorted=[...data].sort((a,b)=>b.total-a.total);
-  const max=sorted[0].total||1;
-
-  document.getElementById('m-count').textContent=data.length;
-  document.getElementById('m-leader').textContent=shortName(sorted[0].country);
-  document.getElementById('m-score').textContent=sorted[0].total.toFixed(2);
-
-  const rankCls=['r1','r2','r3'];
-  document.getElementById('leaderboard').innerHTML=sorted.map((c,i)=>{
-    const oi=data.indexOf(c);
-    const active=oi===selectedIdx?' active':'';
-    const pct=parsePct(c.vote);
-    const hi=pct>=50;
-    const vDisp=c.vote&&c.vote!=='—'?c.vote:'0%';
-    return `<div class="lb-row${active}" onclick="selectC(${oi})">
-      <div class="rank ${rankCls[i]||''}">${i+1}</div>
-      <div class="country-name">${shortName(c.country)}</div>
-      <div class="vote-wrap">
-        <div class="vote-pct ${hi?'hi':'lo'}">${vDisp}</div>
-        <div class="vote-track"><div class="vote-fill ${hi?'hi':'lo'}" style="width:${pct}%"></div></div>
-        <div class="vote-lbl">would vote</div>
-      </div>
-      <div class="total-bar-wrap"><div class="total-bar-fill" style="width:${Math.round(c.total/max*100)}%"></div></div>
-      <div class="score-val">${c.total.toFixed(1)}</div>
-    </div>`;
-  }).join('');
-
-  renderDetail();
-  renderAwards();
-  renderPodiums();
-  renderWords();
-}
-
-function selectC(idx){
-  selectedIdx=idx;
-  render();
-}
-
-function renderDetail(){
-  const c=data[selectedIdx]||data[0]; if(!c) return;
-  document.getElementById('detail-name').textContent=shortName(c.country);
-  document.getElementById('detail-score').textContent=c.total.toFixed(2);
-
-  // Country selector buttons
-  document.getElementById('country-selector').innerHTML=data.map((d,i)=>`
-    <div class="country-btn${i===selectedIdx?' active':''}" onclick="selectC(${i})">${shortName(d.country)}</div>
-  `).join('');
-
-  // Category bars
-  document.getElementById('categories').innerHTML=CATS.map(cat=>{
-    const val=c[cat.key]||0;
-    const pct=Math.round(val/10*100);
-    return `<div class="cat-row">
-      <div class="cat-label" style="color:${cat.color}">${cat.icon} ${cat.label}</div>
-      <div class="cat-bar-wrap"><div class="cat-bar" style="width:${pct}%;background:${cat.color};box-shadow:0 0 10px ${cat.color}60"></div></div>
-      <div class="cat-num" style="color:${cat.color}">${val.toFixed(1)}</div>
-    </div>`;
-  }).join('');
-}
-
-function renderAwards(){
-  document.getElementById('awards').innerHTML=CATS.map(cat=>{
-    const winner=[...data].sort((a,b)=>b[cat.key]-a[cat.key])[0];
-    if(!winner) return '';
-    return `<div class="award-card" style="border-color:${cat.color}22">
-      <div class="award-icon">${cat.icon}</div>
-      <div class="award-cat" style="color:${cat.color}">${cat.label}</div>
-      <div class="award-winner">${shortName(winner.country)}</div>
-      <div class="award-score" style="color:${cat.scoreColor}">${(winner[cat.key]||0).toFixed(1)}</div>
-    </div>`;
-  }).join('');
-}
-
-function renderPodiums(){
-  const isBest=podiumTab==='best';
-  document.getElementById('podiums').innerHTML=CATS.map(cat=>{
-    const s=[...data].sort((a,b)=> isBest ? b[cat.key]-a[cat.key] : a[cat.key]-b[cat.key]);
-    const pills=s.slice(0,3).map((c,i)=>{
-      const bCls=isBest?['pp1','pp2','pp3'][i]:['pw1','pw2','pw3'][i];
-      const medal=isBest?['🥇','🥈','🥉'][i]:['💀','😬','😶'][i];
-      return `<span class="podium-pill ${bCls}">${medal} ${shortName(c.country)} ${(c[cat.key]||0).toFixed(1)}</span>`;
-    }).join('');
-    return `<div class="podium-row">
-      <div class="podium-cat" style="color:${cat.color}">${cat.icon} ${cat.label}</div>
-      <div class="podium-winners">${pills}</div>
-    </div>`;
-  }).join('');
-}
-
-function renderWords(){
-  const freq={};
-  data.forEach(c=>{ if(c.word){ const w=c.word.toLowerCase().trim(); freq[w]=(freq[w]||0)+1; } });
-  const sorted=Object.entries(freq).sort((a,b)=>b[1]-a[1]);
-  const maxF=sorted[0]?.[1]||1;
-  document.getElementById('wordcloud').innerHTML=sorted.map(([word,count],i)=>{
-    const size=Math.round(13+(count/maxF)*15);
-    const col=WORD_COLORS[i%WORD_COLORS.length];
-    return `<span class="word" style="font-size:${size}px;background:${col.bg};color:${col.fg}">${word}</span>`;
-  }).join('');
-}
+function toggleLb(){lbExpanded=!lbExpanded;render();}
 
 async function connectSheet(){
   const url=document.getElementById('csv-url').value.trim();
-  if(!url) return;
+  if(!url)return;
   csvUrl=url;
   await fetchData();
 }
 
 async function fetchData(){
-  if(!csvUrl) return;
-  try {
+  if(!csvUrl)return;
+  try{
     const r=await fetch(csvUrl);
-    if(!r.ok) throw new Error();
+    if(!r.ok)throw new Error();
     const text=await r.text();
     const parsed=parseCSV(text);
     if(parsed.length){
+      updateScoreHistory(parsed);
       data=parsed;
       document.getElementById('err-msg').style.display='none';
       document.getElementById('status').textContent='Connected · last updated '+new Date().toLocaleTimeString();
       render();
     }
-  } catch(e) { document.getElementById('err-msg').style.display='block'; }
+  }catch(e){document.getElementById('err-msg').style.display='block';}
 }
 
 setInterval(()=>{
   countdown--;
-  if(countdown<=0){ countdown=10; fetchData(); }
+  if(countdown<=0){countdown=10;fetchData();}
   document.getElementById('cd').textContent=countdown;
 },1000);
 
 (function(){
   const el=document.getElementById('stars');
   for(let i=0;i<100;i++){
-    const s=document.createElement('div'); s.className='star';
+    const s=document.createElement('div');s.className='star';
     const sz=Math.random()<0.7?1:2;
     s.style.cssText=`left:${Math.random()*100}%;top:${Math.random()*100}%;width:${sz}px;height:${sz}px;--d:${2+Math.random()*5}s;--delay:-${Math.random()*5}s`;
     el.appendChild(s);
   }
 })();
 
+updateScoreHistory(data);
+compareIdxA=0;
+compareIdxB=Math.min(1,data.length-1);
 render();
 </script>
 </body>
