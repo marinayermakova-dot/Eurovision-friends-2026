@@ -455,7 +455,7 @@ function isHot(country){
 
 // ── PREDICTION ────────────────────────────────────
 function renderPrediction(){
-  const voted=data.filter(c=>c.total>0).sort((a,b)=>b.total-a.total);
+  const voted=data.filter(c=>c.total>0||c.vocals>0||c.outfit>0).sort((a,b)=>b.total-a.total);
   if(voted.length<2){document.getElementById('prediction').style.display='none';return;}
   document.getElementById('prediction').style.display='flex';
   const scores=voted.map(c=>Math.max(c.total,0.1));
@@ -517,7 +517,7 @@ function animConfetti(){
 // ── RENDER ────────────────────────────────────────
 function render(){
   if(!data.length)return;
-  const voted=data.filter(c=>c.total>0);
+  const voted=data.filter(c=>c.total>0||c.vocals>0||c.outfit>0);
   const votedSorted=[...voted].sort((a,b)=>b.total-a.total);
   const max=votedSorted.length?votedSorted[0].total:1;
   const newLeader=votedSorted.length?votedSorted[0].country:'';
@@ -533,7 +533,7 @@ function render(){
 
   const rankCls=['r1','r2','r3'];
   // Leaderboard: voted first sorted by score, then unvoted alphabetically
-  const unvoted=data.filter(c=>c.total===0).sort((a,b)=>shortName(a.country).localeCompare(shortName(b.country)));
+  const unvoted=data.filter(c=>c.total===0&&c.vocals===0&&c.outfit===0).sort((a,b)=>shortName(a.country).localeCompare(shortName(b.country)));
   const allSorted=[...votedSorted,...unvoted];
   const visible=lbExpanded?allSorted:allSorted.slice(0,5);
   const rows=visible.map((c,i)=>{
@@ -545,19 +545,20 @@ function render(){
     const name=shortName(c.country);
     const flag=getFlag(name);
     const hot=isHot(c.country)?'<span class="hot-badge" title="Rising fast!">🔥</span>':'';
-    const isLeader=i===0&&c.total>0;
+    const hasData=c.total>0||c.vocals>0||c.outfit>0;
+    const isLeader=i===0&&hasData;
     return`<div class="lb-row${active}${isLeader&&leaderChanged?' new-leader':''}" onclick="selectC(${oi})">
-      <div class="rank ${rankCls[i]||''}">${c.total>0?i+1:'·'}</div>
+      <div class="rank ${rankCls[i]||''}">${hasData?i+1:'·'}</div>
       <div class="flag-cell">${flag}</div>
-      <div class="country-name" style="${c.total===0?'color:var(--text3)':''}">${name}</div>
+      <div class="country-name" style="${!hasData?'color:var(--text3)':''}">${name}</div>
       ${hot}
       <div class="vote-wrap">
-        <div class="vote-pct ${hi?'hi':'lo'}">${c.total>0?vDisp:'—'}</div>
-        <div class="vote-track"><div class="vote-fill ${hi?'hi':'lo'}" style="width:${c.total>0?pct:0}%"></div></div>
+        <div class="vote-pct ${hi?'hi':'lo'}">${hasData?vDisp:'—'}</div>
+        <div class="vote-track"><div class="vote-fill ${hi?'hi':'lo'}" style="width:${hasData?pct:0}%"></div></div>
         <div class="vote-lbl">would vote</div>
       </div>
       <div class="total-bar-wrap"><div class="total-bar-fill" style="width:${max>0?Math.round(c.total/max*100):0}%"></div></div>
-      <div class="score-val" style="${c.total===0?'color:var(--text3)':''}">${c.total>0?c.total.toFixed(1):'—'}</div>
+      <div class="score-val" style="${!hasData?'color:var(--text3)':''}">${hasData?c.total.toFixed(1):'—'}</div>
     </div>`;
   }).join('');
   const toggleBtn=allSorted.length>5?`<div class="lb-toggle" onclick="toggleLb()">${lbExpanded?'▲ Show top 5 only':`▼ Show all ${allSorted.length} countries`}</div>`:'';
